@@ -5,7 +5,7 @@ import App from '../components/App'
 import PRODUCTS from '../queries/products.gql'
 import Loading from '../components/Loading'
 import Banner from '../components/Banner'
-import Calls from '../components/Calls'
+// import Calls from '../components/Calls'
 
 class Home extends Component {
   render () {
