@@ -1,0 +1,3 @@
+mutation ToggleTodo($id: Int!) {
+    toggleTodo(id: $id) @client
+  }

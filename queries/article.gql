@@ -1,0 +1,36 @@
+query($articleId: ID!) {
+  article(articleId: $articleId) {
+    id
+    title
+    resume
+    author {
+      id
+    }
+    keyWords
+    shortDescription
+    published
+    file {
+      url
+    }
+    citations {
+      id
+    }
+    issue {
+      key
+      volume number
+    }
+    selectedBy {
+      key
+    }
+    editorial {
+      key
+    }
+    createdAt
+    updatedAt
+    payment {
+      id
+      status
+      url
+    }
+  }
+}

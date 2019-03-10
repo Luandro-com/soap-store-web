@@ -1,0 +1,11 @@
+query {
+  products {
+    id
+    name
+    image
+    variants {
+      id
+      name
+    }
+  }
+}

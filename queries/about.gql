@@ -1,0 +1,17 @@
+query {
+  content {
+    description
+    scope
+    contact
+    footer
+    librarianInfo
+    privacyStatement
+    proofInstructions
+    publicationFrequency
+    purchaseArticleDescription
+    reviewGuidelines
+    waiverPolicy
+    updatedAt
+    createdAt
+  }
+}

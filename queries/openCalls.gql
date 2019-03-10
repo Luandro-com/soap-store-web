@@ -1,0 +1,38 @@
+query {
+	openCalls {
+    id
+    title
+    key
+    image
+    submitedArticles {
+      id
+      title
+      payment {
+        status
+      }
+    }
+    selectedArticles {
+      id
+      title
+      author {
+        firstName
+        lastName
+      }
+    }
+    selectedEditorials {
+      id
+      title
+    }
+    body
+    evaluationPeriod
+    publicationPrediction
+    contact
+    publishedCall
+    published
+    startCall
+    endCall
+    createdAt
+    updatedAt
+
+  }
+}

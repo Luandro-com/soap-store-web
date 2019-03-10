@@ -1,0 +1,11 @@
+mutation($input: ArticleInput! $articleId: ID! $fileId: ID) {
+  updateArticle(input: $input articleId: $articleId fileId: $fileId) {
+    id
+    title
+    shortDescription
+    resume
+    file {
+      url
+    }
+  }
+}

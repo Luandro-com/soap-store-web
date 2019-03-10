@@ -1,0 +1,8 @@
+query {
+  user @client {
+    email
+    firstName
+    id
+    role
+  }
+}

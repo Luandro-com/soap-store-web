@@ -1,0 +1,22 @@
+query {
+  content {
+    title
+    code
+    logo
+    sections
+    authorGuideline
+    description
+    scope
+    contact
+    footer
+    librarianInfo
+    privacyStatement
+    proofInstructions
+    publicationFrequency
+    purchaseArticleDescription
+    reviewGuidelines
+    waiverPolicy
+    updatedAt
+    createdAt
+  }
+}

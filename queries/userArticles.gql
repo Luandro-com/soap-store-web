@@ -1,0 +1,50 @@
+query {
+  user {
+    id
+    email
+    firstName
+    lastName
+    role
+    image
+    initials
+    about
+    subscribed
+    payments {
+      id
+      status
+    }
+    articles {
+      id
+      title
+      resume
+      author {
+        id
+      }
+      shortDescription
+      published
+      file {
+        url
+      }
+      citations {
+        id
+      }
+      issue {
+        key
+        volume number
+      }
+      selectedBy {
+        key
+      }
+      editorial {
+        key
+      }
+      createdAt
+      updatedAt
+      payment {
+        id
+        status
+      }
+    }
+
+  }
+}

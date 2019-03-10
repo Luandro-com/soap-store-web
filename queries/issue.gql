@@ -1,0 +1,16 @@
+query($issueKey: String!) {
+  issue(issueKey: $issueKey) {
+    id
+    title
+    body
+    volume
+    selectedArticles {
+      id
+      title
+      file {
+        url
+        id
+      }
+    }
+  }
+}
