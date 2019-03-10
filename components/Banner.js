@@ -5,7 +5,7 @@ import colors from '../lib/colors'
 
 const Banner = ({ router: { pathname }, items }) => (
   <article>
-    <h1>Em destaque</h1>
+    {/* <h1>Em destaque</h1> */}
     <Carousel
       autoplay={true}
       renderBottomRightControls={({ currentSlide, goToSlide }) => {
