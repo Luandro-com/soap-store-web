@@ -25,6 +25,7 @@ export default class extends Document {
     return (
       <html>
         <Head>
+          <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {/* <script
             async
