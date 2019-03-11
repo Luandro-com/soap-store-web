@@ -49,7 +49,7 @@ const Header = ({ router: { pathname }, user, content }) => (
           {(data && data.productCategories) && data.productCategories.map(i => <div key={i.id}>
             <div className="category">
               <a>{i.name}</a>
-              <div className="menu">
+              <div className="products-menu-menu">
                 <a href={`/${i.name}`}>Todos</a>
                 {i.subCategories.map(sub => <a key={sub} href={`/${sub}`}>{sub}</a>)}
               </div>
@@ -82,11 +82,14 @@ const Header = ({ router: { pathname }, user, content }) => (
             margin-top: -100px;
           }
           .logo {
-            height: 100px;
+            height: 200px;
             text-align: center;
             margin: 0 auto;
-            padding: 30px 0;
+            padding: 30px 0 0;
             max-width: 70%;
+          }
+          .logo img {
+            max-height: 100%;
           }
           hr {
             max-width: 948px;
@@ -95,7 +98,7 @@ const Header = ({ router: { pathname }, user, content }) => (
           .top-menu {
             position: fixed;
             top: 0;
-            // padding: 0 15px;
+            z-index: 999;
             height: 40px;
             width: 100%;
             background: white;
@@ -125,7 +128,7 @@ const Header = ({ router: { pathname }, user, content }) => (
             padding: 15px 10px;
           }
           .products-menu {
-            margin: 100px auto;
+            margin: 60px auto;
             width: 100%;
             max-width: 600px;
             display: flex;
@@ -143,7 +146,7 @@ const Header = ({ router: { pathname }, user, content }) => (
           .is-active {
             font-weight: 900;
           }
-          .menu {
+          .products-menu-menu {
             position: absolute;
             display: flex;
             top: -300px;
@@ -153,20 +156,20 @@ const Header = ({ router: { pathname }, user, content }) => (
             background: white;
             padding: 0 15px 5px 0;
           }
-          .menu a {
+          .products-menu-menu a {
             color: ${colors.color3};
             margin: 5px 0;
           }
-          .category:hover .menu {
+          .category:hover .products-menu-menu {
             top: inherit;
           }
-          .menu *:hover {
+          .products-menu-menu *:hover {
             top: inherit;
           }
           .profile-pic {
             height: 22px;
             width: 22px;
-            background: ${user.image ? `url(${user.image})` : 'black'};
+            background: ${(user && user.image) ? `url(${user.image})` : 'black'};
             border-radius: 50%;
           }
           .profile-container {
