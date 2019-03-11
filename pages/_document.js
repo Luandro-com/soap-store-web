@@ -27,6 +27,7 @@ export default class extends Document {
         <Head>
           <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
           <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" />
+          <link href="/static/proxima_nova.ttf" rel="stylesheet" />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {/* <script
             async

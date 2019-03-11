@@ -41,15 +41,13 @@ export default ({ children }) => (
                   }
                   body {
                     margin: 0;
-                    padding: 25px 50px;
+                    padding: 50px 15px;
                   }
                   a {
-                    color: ${colors.dark};
-                    font-family: 'Oswald', sans-serif;
+                    font-family: 'proxima-nova', sans-serif;
                     font-weight: 500;
                     text-transform: uppercase;
                     border: none;
-                    font-size: 18px;
                     border-radius: 5px;
                     position: relative;
                     box-sizing: border-box;

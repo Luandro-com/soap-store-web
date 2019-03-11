@@ -17,10 +17,11 @@ const Header = ({ router: { pathname }, user, content }) => (
           </div>
         </Link>
         <div className="user">
-          {(user === 'loading') && <Loading />}
+          {(user === 'loading') && <img src="/static/profile.svg" />}
           {(!user || user === 'error') &&
             <Link prefetch href='/login'>
               <a className={pathname === '/login' ? 'is-active' : ''}><img src="/static/profile.svg" /></a>
+              
             </Link>
           }
           <Link prefetch href='/cesta'>
@@ -90,7 +91,7 @@ const Header = ({ router: { pathname }, user, content }) => (
 
           }
           .user img {
-            height: 35px;
+            height: 22px;
             padding: 15px 10px;
           }
           nav {
@@ -103,11 +104,14 @@ const Header = ({ router: { pathname }, user, content }) => (
             justify-content: space-around;
           }
           a {
-            font-size: 16px;
+            font-size: 10px;
+            font-weight: 700;
             text-decoration: none;
+            letter-spacing: .11em;
+            font-style: normal;
           }
           .is-active {
-            font-weigth: 900;
+            font-weight: 900;
           }
           .menu {
             position: absolute;

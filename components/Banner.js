@@ -25,11 +25,10 @@ const Banner = ({ router: { pathname }, items }) => (
       renderBottomCenterControls={({ currentSlide }) => null}
     >
       {(items && items.length === 0) && <div className="slide">
-        <h1>Edições</h1>
       </div>}
       {items && items.map(e => <div key={e.id}><Link href={`/issue?key=${e.key}`}>
-        <div className="slide">
-          <h1>{e.name}</h1>
+        <div className="slide" style={{ backgroundImage: `url(${e.image})` }}>
+          {/* <h1>{e.name}</h1> */}
         </div>
       </Link></div>)}
     </Carousel>
@@ -40,20 +39,23 @@ const Banner = ({ router: { pathname }, items }) => (
       }
       .slideControl {
         position: relative;
-        bottom: -20px;
+        bottom: 20px;
+        right: 20px;
         width: 15px;
-        height: 15px;
-        border: 1px solid ${colors.color4};
+        height: 3px;
+        border: 1px solid white;
         margin: 0 2.5px;
         cursor: pointer;
       }
       .selected {
-        background: ${colors.color4};
+        background: white;
       }
       .slide {
         width: 100%;
-        height: 350px;
-        background: rgba(0,0,0,0.1);
+        height: 400px;
+        background-size: cover;
+        background: rgba(0,0,0,.1);
+        background-position: center;
       }
       .slide h1 {
         padding: 25px 35px;
