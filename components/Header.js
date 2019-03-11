@@ -152,13 +152,19 @@ const Header = ({ router: { pathname }, user, content }) => (
             top: -300px;
             flex-flow: column;
             text-align: left;
-            width: 100%;
-            background: white;
-            padding: 0 15px 5px 0;
+            width: 100px;
+            background: black;
+            padding: 5px 15px 5px 5px;
           }
           .products-menu-menu a {
             color: ${colors.color3};
             margin: 5px 0;
+          }
+          .products-menu-menu a:hover {
+            color: white;
+          }
+          .products-menu-menu a:hover:before {
+            width: 0%;
           }
           .category:hover .products-menu-menu {
             top: inherit;

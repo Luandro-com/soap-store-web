@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
-import { Query, Mutation } from 'react-apollo'
 import App from '../components/App'
-import PRODUCTS from '../queries/products.gql'
 import Loading from '../components/Loading'
-import Banner from '../components/Banner'
 import AppData from '../components/AppData'
+import Banner from '../components/Banner'
+import ProductList from '../components/ProductList'
 
 class Home extends Component {
   render () {
@@ -13,20 +12,13 @@ class Home extends Component {
       <App>
         <AppData.Consumer>
           {({ user, content }) => (
-            <Query query={PRODUCTS}>
-              {({ data, loading, error }) => {
-                // const issues = loading ? [] : (error ? [] : data.issues)
-                return (
-                  <div>
-                    {loading && <Loading />}
-                    {data && <Banner items={data.products} />}
-                    <div className="info">
-                      <img src={content.infoImage} />
-                    </div>
-                  </div>
-                )
-              }}
-            </Query>
+            <div>
+              {content && <Banner items={content.bannerImages} />}
+              <div className="info">
+                <img src={content.infoImage} />
+              </div>
+              <ProductList />
+            </div>
           )}
         </AppData.Consumer>
         <style jsx>{`
@@ -39,7 +31,7 @@ class Home extends Component {
             text-align: center;
           }
           .info img {
-            max-width: 80%;
+            max-width: 95%;
           }
         `}</style>
       </App>

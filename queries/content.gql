@@ -3,6 +3,7 @@ query {
     title
     code
     logo
+    bannerImages
     metaDescription
     metaFavicon
     metaKeyWords

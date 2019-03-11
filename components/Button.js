@@ -16,21 +16,15 @@ const Button = ({ children, to, color }) => (
     </button>
     <style jsx>{`
       button, .btn{
-        color: white;
+        color: black;
         text-decoration: none;
-        background-color: ${color ? colors[color] : colors.color5};  /* change button color here */
-        -moz-border-radius: 2px;
-        -webkit-border-radius: 2px;
-        border-radius: 2px;
-        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
-        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
-        border: 0px;
+        background-color: white;  /* change button color here */
+        border: 0.5px solid black;
         outline: none;
         display: inline-block;
         padding: 8px 22px;
         margin-bottom: 0;
-        font-size: 15px;
+        font-size: 0.7em;
         font-weight: normal;
         letter-spacing: .12rem;
         line-height: 1.428571429;
@@ -46,14 +40,16 @@ const Button = ({ children, to, color }) => (
       }
 
       input[type='submit']:hover, button:hover, .btn:hover{
-      background-color: ${colors.color5};  /* change button color here */
+        background-color: black;  /* change button color here */
+        color: white;
       }
 
       input[type='submit']:active, button:active, .btn:active{
-      background-color: ${colors.color5};  /* change button color here */
-      border: 0px;
-      -webkit-box-shadow: inset 0px 2px 2px 2px rgba(0, 0, 0, .15);
-      box-shadow: inset 0px 2px 2px 2px rgba(0, 0, 0, .15);
+        background-color: black;  /* change button color here */
+        color: white;
+        border: 0px;
+        -webkit-box-shadow: inset 0px 2px 2px 2px rgba(0, 0, 0, .15);
+        box-shadow: inset 0px 2px 2px 2px rgba(0, 0, 0, .15);
       }
     `}</style>
   </span>

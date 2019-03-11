@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { withRouter } from 'next/router'
 import Carousel from 'nuka-carousel'
 import colors from '../lib/colors'
@@ -13,7 +12,7 @@ const Banner = ({ router: { pathname }, items }) => (
             {items && items.map((e, key) => (
               <div
                 onClick={() => goToSlide(key)}
-                key={e.id}
+                key={key}
                 className={(key === currentSlide) ? 'slideControl selected' : 'slideControl'}
               />
             ))}
@@ -26,11 +25,9 @@ const Banner = ({ router: { pathname }, items }) => (
     >
       {(items && items.length === 0) && <div className="slide">
       </div>}
-      {items && items.map(e => <div key={e.id}><Link href={`/issue?key=${e.key}`}>
-        <div className="slide" style={{ backgroundImage: `url(${e.image})` }}>
-          {/* <h1>{e.name}</h1> */}
-        </div>
-      </Link></div>)}
+      {items && items.map((e, key) => <div key={key}>
+        <div className="slide" style={{ backgroundImage: `url(${e})` }} />
+      </div>)}
     </Carousel>
     <style jsx>{`
       .slideControls {
