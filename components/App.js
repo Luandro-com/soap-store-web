@@ -25,6 +25,7 @@ export default ({ children }) => (
         <Query query={CONTENT}>
           {({ loading: loadingContent, error: errorContent, data: dataContent }) => {
             const contentData = loadingContent ? 'loading' : (errorContent ? 'error' : dataContent.content)
+            console.log('contentData', contentData)
             return (
               <main>
                 <Header user={userData} content={contentData} />

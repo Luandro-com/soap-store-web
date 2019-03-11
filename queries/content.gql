@@ -3,19 +3,14 @@ query {
     title
     code
     logo
+    metaDescription
+    metaFavicon
+    metaKeyWords
     sections
-    authorGuideline
+    infoImage
     description
-    scope
     contact
     footer
-    librarianInfo
-    privacyStatement
-    proofInstructions
-    publicationFrequency
-    purchaseArticleDescription
-    reviewGuidelines
-    waiverPolicy
     updatedAt
     createdAt
   }

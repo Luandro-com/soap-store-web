@@ -9,12 +9,12 @@ import Banner from '../components/Banner'
 
 class Home extends Component {
   render () {
+    console.log('props', this.props)
     return (
       <App>
         <Query query={PRODUCTS}>
           {({ data, loading, error }) => {
             // const issues = loading ? [] : (error ? [] : data.issues)
-            console.log('DATA :', data)
             return (
               <div>
                 {loading && <Loading />}

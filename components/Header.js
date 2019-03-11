@@ -20,9 +20,12 @@ const Header = ({ router: { pathname }, user, content }) => (
           {(user === 'loading') && <Loading />}
           {(!user || user === 'error') &&
             <Link prefetch href='/login'>
-              <a className={pathname === '/login' ? 'is-active' : ''}>Login</a>
+              <a className={pathname === '/login' ? 'is-active' : ''}><img src="/static/profile.svg" /></a>
             </Link>
           }
+          <Link prefetch href='/cesta'>
+            <a className={pathname === '/cesta' ? 'is-active' : ''}><img src="/static/cesta.svg" /></a>
+          </Link>
           {(user && user !== 'loading' && user !== 'error') && <a onClick={() => logout(client)} href=''>Logout</a>}
         </div>
         <nav>
@@ -82,7 +85,13 @@ const Header = ({ router: { pathname }, user, content }) => (
             position: absolute;
             top: 30px;
             right: 30px;
+            display: flex;
+            flex-flow: row no-wrap;
 
+          }
+          .user img {
+            height: 35px;
+            padding: 15px 10px;
           }
           nav {
             margin: 0 auto;
