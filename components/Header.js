@@ -2,13 +2,12 @@ import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { logout } from '../lib/auth'
 import { Query } from 'react-apollo'
-import Loading from './Loading'
 import colors from '../lib/colors'
 import PRODUCT_CATEGORIES from '../queries/productCategories.gql'
 
 const Header = ({ router: { pathname }, user, content }) => (
   <Query query={PRODUCT_CATEGORIES}>
-      {({ data, loading, error }) => (
+      {({ data, loading, error, client }) => (
       <header>
         <Link prefetch href='/'>
           <div className="logo">
@@ -16,20 +15,34 @@ const Header = ({ router: { pathname }, user, content }) => (
             {(content && content.logo) && <img src={content.logo} />}
           </div>
         </Link>
-        <div className="user">
-          {(user === 'loading') && <img src="/static/profile.svg" />}
-          {(!user || user === 'error') &&
-            <Link prefetch href='/login'>
-              <a className={pathname === '/login' ? 'is-active' : ''}><img src="/static/profile.svg" /></a>
-              
+        <nav className="top-menu">
+          <div className="user">
+            {(!user || user === 'error' || loading) &&
+              <Link prefetch href='/login'>
+                <img src="/static/profile.svg" />
+              </Link>
+            }
+            {(user && user !== 'loading' && user !== 'error') && <div className="profile-container">
+                <a className={pathname === '/profile' ? 'is-active' : ''} className="profile-pic"></a>
+                <div className="profile-menu">
+                  <a onClick={() => logout(client)} href=''>sair</a>
+                  <Link prefetch href='/perfil'><a>{user.email}</a></Link>
+                </div>
+            </div>}
+            <Link prefetch href='/cesta'>
+              <a className={pathname === '/cesta' ? 'is-active' : ''}><img src="/static/cesta.svg" /></a>
             </Link>
-          }
-          <Link prefetch href='/cesta'>
-            <a className={pathname === '/cesta' ? 'is-active' : ''}><img src="/static/cesta.svg" /></a>
-          </Link>
-          {(user && user !== 'loading' && user !== 'error') && <a onClick={() => logout(client)} href=''>Logout</a>}
-        </div>
-        <nav>
+          </div>
+          <div className="left-menu">
+            <Link prefetch href='/about'>
+              <a>Sobre</a>
+            </Link>
+            <Link prefetch href='/contact'>
+              <a>Contato</a>
+            </Link>
+          </div>
+        </nav>
+        <nav className="products-menu">
           {/* <Link prefetch href='/'>
             <a className={pathname === '/' ? 'is-active' : ''}>Início</a>
           </Link> */}
@@ -69,37 +82,54 @@ const Header = ({ router: { pathname }, user, content }) => (
             margin-top: -100px;
           }
           .logo {
+            height: 100px;
             text-align: center;
             margin: 0 auto;
             padding: 30px 0;
             max-width: 70%;
           }
-          .logo img {
-            width: 37%;
-            // height: 100%;
-          }
           hr {
             max-width: 948px;
             color: ${colors.color3};
           }
-          .user {
-            position: absolute;
-            top: 30px;
-            right: 30px;
+          .top-menu {
+            position: fixed;
+            top: 0;
+            // padding: 0 15px;
+            height: 40px;
+            width: 100%;
+            background: white;
             display: flex;
-            flex-flow: row no-wrap;
-
+            flex-direction: row-reverse;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+          }
+          .user, .left-menu {
+            display: flex;
+            flex-flow: row nowrap;
+            width: 50%;
+          }
+          .user {
+            justify-content: flex-end;
+            margin-right: 30px;
+          }
+          .left-menu {
+            justify-content: flex-start;
+          }
+          .left-menu a {
+            margin: 0 5px;
           }
           .user img {
             height: 22px;
             padding: 15px 10px;
           }
-          nav {
-            margin: 0 auto;
+          .products-menu {
+            margin: 100px auto;
             width: 100%;
             max-width: 600px;
             display: flex;
-            flex-flow: row no-wrap;
+            flex-flow: row nowrap;
             align-items: center;
             justify-content: space-around;
           }
@@ -132,6 +162,28 @@ const Header = ({ router: { pathname }, user, content }) => (
           }
           .menu *:hover {
             top: inherit;
+          }
+          .profile-pic {
+            height: 22px;
+            width: 22px;
+            background: ${user.image ? `url(${user.image})` : 'black'};
+            border-radius: 50%;
+          }
+          .profile-container {
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+          }
+          .profile-menu {
+            position: absolute;
+            top: -500px;
+            text-align: right;
+            right: 60px;
+            display: flex;
+            flex-flow: column;
+          }
+          .profile-container:hover .profile-menu {
+            top: 45px;
           }
         `}</style>
       </header>
