@@ -5,6 +5,7 @@ import Loading from '../components/Loading'
 import AppData from '../components/AppData'
 import Banner from '../components/Banner'
 import ProductList from '../components/ProductList'
+import Subscribe from '../components/Subscribe'
 
 class Home extends Component {
   render () {
@@ -18,6 +19,7 @@ class Home extends Component {
                 <img src={content.infoImage} />
               </div>
               <ProductList />
+              <Subscribe />
             </div>
           )}
         </AppData.Consumer>

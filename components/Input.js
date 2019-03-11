@@ -26,9 +26,8 @@ const Input = ({ label, type, width, value, onChange, margin }) => (
         appearance: none;
         display: inline-block;
         min-height: 36px;
-        width: 100%;
+        width: ${width || '100%'};
         padding: 8px 12px;
-        margin-top: ${5 - (type === 'textarea') ? 80 : 30 }px;
         background: #fff;
         border: 1px solid #d9d9d9;
         border-top: 1px solid #c0c0c0;
@@ -48,9 +47,8 @@ const Input = ({ label, type, width, value, onChange, margin }) => (
         appearance: none;
         display: inline-block;
         min-height: 36px;
-        width: 100%;
+        width: ${width || '100%'};
         padding: 8px 12px;
-        margin-top: ${5 - (type === 'textarea') ? 80 : 30 }px;
         background: #fff;
         border: 1px solid #d9d9d9;
         border-top: 1px solid #c0c0c0;
