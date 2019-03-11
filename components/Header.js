@@ -19,7 +19,7 @@ const Header = ({ router: { pathname }, user, content }) => (
           <div className="user">
             {(!user || user === 'error' || loading) &&
               <Link prefetch href='/login'>
-                <img src="/static/profile.svg" />
+                <a><img src="/static/profile.svg" /></a>
               </Link>
             }
             {(user && user !== 'loading' && user !== 'error') && <div className="profile-container">
@@ -50,8 +50,12 @@ const Header = ({ router: { pathname }, user, content }) => (
             <div className="category">
               <a>{i.name}</a>
               <div className="products-menu-menu">
-                <a href={`/${i.name}`}>Todos</a>
-                {i.subCategories.map(sub => <a key={sub} href={`/${sub}`}>{sub}</a>)}
+                <Link as={`/p/${i.slug}`} href={`/product?category=${i.slug}`}>
+                  <a>Todos</a>
+                </Link>
+                {i.subCategories.map(sub => <Link key={sub.id} as={`/p/${i.slug}/${sub.slug}`} href={`/product?category=${i.slug}&sub=${sub.slug}`}>
+                  <a>{sub.name}</a>
+                </Link>)}
               </div>
             </div>
             
@@ -87,6 +91,7 @@ const Header = ({ router: { pathname }, user, content }) => (
             margin: 0 auto;
             padding: 30px 0 0;
             max-width: 70%;
+            cursor: pointer;
           }
           .logo img {
             max-height: 100%;

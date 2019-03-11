@@ -19,7 +19,7 @@ const Button = ({ children, to, color }) => (
         color: black;
         text-decoration: none;
         background-color: white;  /* change button color here */
-        border: 0.5px solid black;
+        border: 1.5px solid black;
         outline: none;
         display: inline-block;
         padding: 8px 22px;

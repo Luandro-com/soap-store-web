@@ -6,6 +6,7 @@ import AppData from '../components/AppData'
 import Banner from '../components/Banner'
 import ProductList from '../components/ProductList'
 import Subscribe from '../components/Subscribe'
+import Contact from '../components/Contact'
 
 class Home extends Component {
   render () {
@@ -20,6 +21,7 @@ class Home extends Component {
               </div>
               <ProductList />
               <Subscribe />
+              <Contact />
             </div>
           )}
         </AppData.Consumer>

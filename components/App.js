@@ -35,7 +35,7 @@ export default class extends Component {
                       }
                       body {
                         margin: 0;
-                        padding: 50px 15px;
+                        padding: 50px 0 0;
                       }
                       a {
                         font-family: 'proxima-nova', sans-serif;
@@ -89,10 +89,10 @@ export default class extends Component {
                       button:disabled {
                         background-color: gray;
                       }
-                      .footer {
-                        padding-top: 80px;
-                        width: 100%;
-                      }
+                      // .footer {
+                      //   padding-top: 80px;
+                      //   width: 100%;
+                      // }
                     `}</style>
                   </main>
                 )

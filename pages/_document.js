@@ -28,6 +28,9 @@ export default class extends Document {
           <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
           <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" />
           <link href="/static/proxima_nova.ttf" rel="stylesheet" />
+          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+   crossorigin=""/>
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           {/* <script
             async

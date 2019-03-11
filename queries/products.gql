@@ -1,8 +1,19 @@
 query {
   products {
     id
+    slug
     name
     image
+    category {
+      id
+      name
+      slug
+    }
+    subCategories {
+      id
+      name
+      slug
+    }
     variants {
       id
       name

@@ -9,11 +9,11 @@ import Loading from '../components/Loading'
 
 class Issue extends Component {
     render () {
-      const { router: { query: { key } } } = this.props
+      const { router: { query: { category, sub } } } = this.props
       console.log(this.props)
       return (
         <App>
-          <Query query={ISSUE} variables={{issueKey: key}}>
+          {/* <Query query={ISSUE} variables={{issueKey: key}}>
             {({ data, loading, error }) => {
               if (loading) return <Loading />
               if (error) return <h2>error</h2>
@@ -24,24 +24,12 @@ class Issue extends Component {
                   <div>
                     <h1>{title}</h1>
                     <div dangerouslySetInnerHTML={{__html: body }} />
-                    {selectedArticles.map(article => <div key={article.id}>
-                      {!article.file &&
-                        <div>
-                          Artigo sem PDF...
-                        </div>
-                      }
-                      {article.file &&
-                        <div>
-                          <Link href={`/pdf?url=${article.file.url}`}><a>{article.title}</a></Link>
-                          <a href={article.file.url}>📎</a>
-                        </div>
-                      }
-                    </div>)}
+                    
                   </div>
                 )
               }
             }}
-          </Query>
+          </Query> */}
         </App>
       )
     }

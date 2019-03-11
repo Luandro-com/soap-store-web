@@ -3,7 +3,8 @@ import Router from 'next/router'
 import { Mutation } from "react-apollo"
 import LOGIN from '../queries/login.gql'
 import { setToken, checkToken } from '../lib/auth'
-import App, { AppData } from '../components/App'
+import App from '../components/App'
+import AppData from '../components/AppData'
 
 class Login extends Component {
   static contextType = AppData 
