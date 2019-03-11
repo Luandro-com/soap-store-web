@@ -43,7 +43,32 @@ export default ({ children }) => (
                     padding: 25px 50px;
                   }
                   a {
-                    color: ${colors.color4};
+                    color: ${colors.dark};
+                    font-family: 'Oswald', sans-serif;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    border: none;
+                    font-size: 18px;
+                    border-radius: 5px;
+                    position: relative;
+                    box-sizing: border-box;
+                    transition: all 500ms ease; 
+                    cursor: pointer;
+                    }
+                  }
+                  a:before {
+                    content:'';
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+                    width: 0px;
+                    height: 42px;
+                    background: rgba(255,255,255,0.3);
+                    border-radius: 5px;
+                    transition: all 2s ease;
+                  }
+                  a:hover:before {
+                    width: 100%;
                   }
                   p {
                     font-size: 14px;

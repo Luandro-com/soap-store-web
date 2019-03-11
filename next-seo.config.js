@@ -1,5 +1,5 @@
 export default {
-  title: 'Periodico Revista PPC',
+  title: 'Flor do Cerrado',
   description: 'Description',
   openGraph: {
     type: 'website',

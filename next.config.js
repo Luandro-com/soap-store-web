@@ -4,7 +4,7 @@ const optimizedImages = require('next-optimized-images');
 const withGraphql = require('next-plugin-graphql')
 const withCSS = require('@zeit/next-css')
 const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
-const withPreact = require('@zeit/next-preact')
+// const withPreact = require('@zeit/next-preact')
 
 module.exports = withPlugins([
   // [withPreact],

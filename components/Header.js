@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import { withRouter } from 'next/router'
 import { logout } from '../lib/auth'
-import { ApolloConsumer } from 'react-apollo'
+import { Query } from 'react-apollo'
 import Loading from './Loading'
 import colors from '../lib/colors'
+import PRODUCT_CATEGORIES from '../queries/productCategories.gql'
 
 const Header = ({ router: { pathname }, user, content }) => (
-  <ApolloConsumer>
-    { client => (
+  <Query query={PRODUCT_CATEGORIES}>
+      {({ data, loading, error }) => (
       <header>
         <Link prefetch href='/'>
           <div className="logo">
@@ -24,15 +25,24 @@ const Header = ({ router: { pathname }, user, content }) => (
           }
           {(user && user !== 'loading' && user !== 'error') && <a onClick={() => logout(client)} href=''>Logout</a>}
         </div>
-        <hr />
         <nav>
-          <Link prefetch href='/'>
+          {/* <Link prefetch href='/'>
             <a className={pathname === '/' ? 'is-active' : ''}>Início</a>
-          </Link>
+          </Link> */}
+          {(data && data.productCategories) && data.productCategories.map(i => <div key={i.id}>
+            <div className="category">
+              <a>{i.name}</a>
+              <div className="menu">
+                <a href={`/${i.name}`}>Todos</a>
+                {i.subCategories.map(sub => <a key={sub} href={`/${sub}`}>{sub}</a>)}
+              </div>
+            </div>
+            
+          </div>)}
           {/* <Link prefetch href='/about'>
             <a className={pathname === '/about' ? 'is-active' : ''}>Sobre</a>
-          </Link>
-          <Link prefetch href='/archive'>
+          </Link> */}
+          {/* <Link prefetch href='/archive'>
             <a className={pathname === '/archive' ? 'is-active' : ''}>Edições</a>
           </Link>
           <Link prefetch href='/submit'>
@@ -57,13 +67,12 @@ const Header = ({ router: { pathname }, user, content }) => (
           .logo {
             text-align: center;
             margin: 0 auto;
-            padding: 10px 0;
-            max-width: 60%;
-            height: 150px;
+            padding: 30px 0;
+            max-width: 70%;
           }
           .logo img {
-            max-width: 70%;
-            max-height: 100%;
+            width: 37%;
+            // height: 100%;
           }
           hr {
             max-width: 948px;
@@ -85,17 +94,36 @@ const Header = ({ router: { pathname }, user, content }) => (
             justify-content: space-around;
           }
           a {
-            font-size: 14px;
-            margin-right: 15px;
+            font-size: 16px;
             text-decoration: none;
           }
           .is-active {
-            text-decoration: underline;
+            font-weigth: 900;
+          }
+          .menu {
+            position: absolute;
+            display: flex;
+            top: -300px;
+            flex-flow: column;
+            text-align: left;
+            width: 100%;
+            background: white;
+            padding: 0 15px 5px 0;
+          }
+          .menu a {
+            color: ${colors.color3};
+            margin: 5px 0;
+          }
+          .category:hover .menu {
+            top: inherit;
+          }
+          .menu *:hover {
+            top: inherit;
           }
         `}</style>
       </header>
     )}
-  </ApolloConsumer>
+  </Query>
 )
 
 export default withRouter(Header)

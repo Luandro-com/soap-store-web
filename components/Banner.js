@@ -4,8 +4,7 @@ import Carousel from 'nuka-carousel'
 import colors from '../lib/colors'
 
 const Banner = ({ router: { pathname }, items }) => (
-  <article>
-    {/* <h1>Em destaque</h1> */}
+  <div>
     <Carousel
       autoplay={true}
       renderBottomRightControls={({ currentSlide, goToSlide }) => {
@@ -35,9 +34,6 @@ const Banner = ({ router: { pathname }, items }) => (
       </Link></div>)}
     </Carousel>
     <style jsx>{`
-      articles {
-        margin-botom: 80px;
-      }
       .slideControls {
         display: flex;
         flex-flow: row no-wrap;
@@ -63,7 +59,7 @@ const Banner = ({ router: { pathname }, items }) => (
         padding: 25px 35px;
       }
     `}</style>
-  </article>
+  </div>
 )
 
 export default withRouter(Banner)

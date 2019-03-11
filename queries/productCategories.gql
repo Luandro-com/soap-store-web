@@ -1,0 +1,7 @@
+query {
+  productCategories {
+		id
+ 		name
+    subCategories
+  }
+}
