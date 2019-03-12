@@ -14,7 +14,7 @@ const Input = ({ label, type, width, value, onChange, margin }) => (
       .wrapper {
         width: ${width || '100%'};
         position: relative;
-        margin: 0 15px;
+        // margin: 0 15px;
       }
       .label {
         position: absolute;
@@ -27,6 +27,7 @@ const Input = ({ label, type, width, value, onChange, margin }) => (
         display: inline-block;
         min-height: 36px;
         width: ${width || '100%'};
+        max-width: 95%;
         padding: 8px 12px;
         background: #fff;
         border: 1px solid #d9d9d9;
@@ -48,6 +49,7 @@ const Input = ({ label, type, width, value, onChange, margin }) => (
         display: inline-block;
         min-height: 36px;
         width: ${width || '100%'};
+        max-width: 95%;
         padding: 8px 12px;
         background: #fff;
         border: 1px solid #d9d9d9;

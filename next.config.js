@@ -1,10 +1,33 @@
+require('dotenv').config()
+
 const withPlugins = require('next-compose-plugins')
 const withOffline = require('next-offline')
-const optimizedImages = require('next-optimized-images');
+const optimizedImages = require('next-optimized-images')
 const withGraphql = require('next-plugin-graphql')
 const withCSS = require('@zeit/next-css')
-const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
+const withBundleAnalyzer = require("@zeit/next-bundle-analyzer")
+const Dotenv = require('dotenv-webpack')
+const path = require('path')
 // const withPreact = require('@zeit/next-preact')
+
+const nextConfig = {
+  webpack: config => {
+    config.plugins = config.plugins || []
+
+    config.plugins = [
+      ...config.plugins,
+
+      // Read the .env file
+      new Dotenv({
+        path: path.join(__dirname, '.env'),
+        systemvars: true
+      })
+    ]
+
+    return config
+  }
+}
+
 
 module.exports = withPlugins([
   // [withPreact],
@@ -28,4 +51,4 @@ module.exports = withPlugins([
       }
     }  
   }],
-])
+], nextConfig)

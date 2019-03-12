@@ -13,6 +13,7 @@ const Header = ({ router: { pathname }, user, content }) => (
           <div className="logo">
             {(content && content.title) && <h1 className={content.logo ? 'hidden' : ''}>{content.title}</h1>}
             {(content && content.logo) && <img src={content.logo} />}
+            {!content && <h1>{process.env.TITLE}</h1>}
           </div>
         </Link>
         <nav className="top-menu">

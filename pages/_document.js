@@ -25,6 +25,7 @@ export default class extends Document {
     return (
       <html>
         <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
           <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" />
           <link href="/static/proxima_nova.ttf" rel="stylesheet" />

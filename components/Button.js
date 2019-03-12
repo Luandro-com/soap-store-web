@@ -22,7 +22,7 @@ const Button = ({ children, to, color }) => (
         border: 1.5px solid black;
         outline: none;
         display: inline-block;
-        padding: 8px 22px;
+        padding: 12px 22px;
         margin-bottom: 0;
         font-size: 0.7em;
         font-weight: normal;

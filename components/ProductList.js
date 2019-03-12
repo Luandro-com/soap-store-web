@@ -11,9 +11,6 @@ export default () => (
           section {
             display: flex;
             flex-flow: row wrap;
-            align-items: flex-start;
-            justify-content: flex-start;
-            align-content: flex-start;
           }
         `}</style>
       </section>

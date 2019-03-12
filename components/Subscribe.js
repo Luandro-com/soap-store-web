@@ -11,11 +11,12 @@ export default () => (
         <h2>Newsletter</h2>
         <form>
           <Input width={'350px'} />
-          <Button>Inscrever</Button>
+          <Button><a>Inscrever</a></Button>
         </form>
         <hr />
         <style jsx>{`
         .container {
+          margin: 0 auto;
           padding: 50px 0;
           text-align: center;
         }
