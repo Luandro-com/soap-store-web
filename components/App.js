@@ -24,12 +24,12 @@ export default class extends Component {
           return (
             <Query query={LOCAL_CART}>
               {({ loading: loadingCart, error: errorCart, data: dataCart, client }) => {
-                let cartData = loadingCart ? 'loading' : (errorCart ? 'error' : dataCart.localCart)
+                let cartData = loadingCart ? 'loading' : (errorCart ? null : dataCart.localCart)
                 console.log('cartData', cartData)
                 return (
                   <Query query={CONTENT}>
                     {({ loading: loadingContent, error: errorContent, data: dataContent }) => {
-                      const contentData = loadingContent ? 'loading' : (errorContent ? 'error' : dataContent.content)
+                      const contentData = loadingContent ? 'loading' : (errorContent ? null : dataContent.content)
                       return (
                         <main>
                           <Header user={userData} content={contentData} />

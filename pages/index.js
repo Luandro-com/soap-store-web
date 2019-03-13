@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Router from 'next/router'
 import App from '../components/App'
 import Loading from '../components/Loading'
+import Error from '../components/Error'
 import AppData from '../components/AppData'
 import Banner from '../components/Banner'
 import ProductList from '../components/ProductList'
@@ -15,8 +16,9 @@ class Home extends Component {
           {({ user, content }) => (
             <main>
               {content && <Banner items={content.bannerImages} />}
+              {!content && <Error />}
               <div className="info">
-                <img src={content.infoImage} />
+                {content && <img src={content.infoImage} />}
               </div>
               <ProductList />
               <Subscribe />

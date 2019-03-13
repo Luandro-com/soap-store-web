@@ -1,4 +1,5 @@
 import App from '../components/App'
+import Error from '../components/Error'
 import AppData from '../components/AppData'
 
 export default () => (
@@ -6,7 +7,8 @@ export default () => (
     <AppData.Consumer>
       {({ user, content }) => (
          <article className="container">
-          <div dangerouslySetInnerHTML={{__html: content.description }} />
+          {content && <div dangerouslySetInnerHTML={{__html: content.description }} />}
+          {!content && <Error />}
         </article>
       )}
     </AppData.Consumer>

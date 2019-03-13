@@ -5,6 +5,7 @@ import { Query } from 'react-apollo'
 import App from '../components/App'
 import AppData from '../components/AppData'
 import Loading from '../components/Loading'
+import Error from '../components/Error'
 import Price from '../components/Price'
 import Input from '../components/Input'
 import Button from '../components/Button'
@@ -17,10 +18,11 @@ class Cart extends Component {
       const slug = Router.router.query.slug
       return (
         <App>
-          <h1>Cesta</h1>
           <AppData.Consumer>
             {({ user, content }) => (
               <main>
+                <h1>Cesta</h1>
+                {!content && <Error />}
                 {console.log(user)}
               </main>
             )}

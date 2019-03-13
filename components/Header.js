@@ -12,19 +12,21 @@ const Header = ({ router: { pathname }, user, content }) => (
       <header>
         <Link prefetch href='/'>
           <div className="logo">
-            {(content && content.title) && <h1 className={content.logo ? 'hidden' : ''}>{content.title}</h1>}
+            {console.log(content)}
             {(content && content.logo) && <img src={content.logo} />}
-            {!content && <h1>{process.env.TITLE}</h1>}
+            {(content && content.title) && <h1 className={content.logo ? 'hidden' : ''}>{content.title}</h1>}
+            {!content && <img src={process.env.LOGO} />}
+            {!process.env.LOGO && <h1>{process.env.TITLE}</h1>}
           </div>
         </Link>
         <nav className="top-menu">
           <div className="user">
-            {(!user || user === 'error' || loading) &&
+            {(!user || loading) &&
               <Link prefetch href='/login'>
                 <a><img src="/static/profile.svg" /></a>
               </Link>
             }
-            {(user && user !== 'loading' && user !== 'error') && <div className="profile-container">
+            {(user && user !== 'loading') && <div className="profile-container">
                 <a className={pathname === '/profile' ? 'is-active' : ''} className="profile-pic"></a>
                 <div className="profile-menu">
                   <a onClick={() => logout(client)} href=''>sair</a>
