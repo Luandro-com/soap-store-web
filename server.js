@@ -57,9 +57,9 @@ app.prepare()
     app.render(req, res, actualPage, queryParams)
   })
 
-  server.get('/c/:category/:sub', (req, res) => {
+  server.get('/c/:category/:subCategory', (req, res) => {
     const actualPage = '/products'
-    const queryParams = { category: req.params.category, sub: req.params.sub } 
+    const queryParams = { category: req.params.category, subCategory: req.params.subCategory } 
     app.render(req, res, actualPage, queryParams)
   })
 

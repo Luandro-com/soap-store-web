@@ -14,7 +14,7 @@ class Home extends Component {
       <App>
         <AppData.Consumer>
           {({ user, content }) => (
-            <div>
+            <main>
               {content && <Banner items={content.bannerImages} />}
               <div className="info">
                 <img src={content.infoImage} />
@@ -22,7 +22,7 @@ class Home extends Component {
               <ProductList />
               <Subscribe />
               <Contact />
-            </div>
+            </main>
           )}
         </AppData.Consumer>
         <style jsx>{`

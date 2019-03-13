@@ -54,7 +54,7 @@ const Header = ({ router: { pathname }, user, content }) => (
                 <Link as={`/c/${i.slug}`} href={`/products?category=${i.slug}`}>
                   <a>Todos</a>
                 </Link>
-                {i.subCategories.map(sub => <Link key={sub.id} as={`/c/${i.slug}/${sub.slug}`} href={`/products?category=${i.slug}&sub=${sub.slug}`}>
+                {i.subCategories.map(sub => <Link key={sub.id} as={`/c/${i.slug}/${sub.slug}`} href={`/products?category=${i.slug}&subCategory=${sub.slug}`}>
                   <a>{sub.name}</a>
                 </Link>)}
               </div>

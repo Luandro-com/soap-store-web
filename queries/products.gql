@@ -1,5 +1,5 @@
-query {
-  products {
+query($category: String $subCategory: String) {
+  products(category: $category subCategory: $subCategory) {
     id
     slug
     name
