@@ -2,15 +2,14 @@ import React, { Component } from 'react'
 import Link from 'next/link'
 import { Query, Mutation } from 'react-apollo'
 import App from '../components/App'
-import ISSUES from '../queries/issues.gql'
+// import ISSUES from '../queries/issues.gql'
 import Loading from '../components/Loading'
-import Banner from '../components/Banner'
 
 class Archive extends Component {
     render () {
       return (
         <App>
-          <Query query={ISSUES}>
+          {/* <Query query={ISSUES}>
             {({ data, loading, error }) => {
               if (loading) return <Loading />
               if (error) return <h2>error</h2>
@@ -51,7 +50,7 @@ class Archive extends Component {
                 </div>
               }
             }}
-          </Query>
+          </Query> */}
         </App>
       )
     }

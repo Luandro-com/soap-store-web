@@ -1,7 +1,7 @@
 import Router from 'next/router'
 import colors from '../lib/colors'
 
-const Button = ({ children, to, color }) => (
+const Button = ({ children, to, color, padding, margin }) => (
   <span>
      <button
       className=".btn"
@@ -16,14 +16,14 @@ const Button = ({ children, to, color }) => (
     </button>
     <style jsx>{`
       button, .btn{
-        color: black;
+        color: ${color || 'black'};
         text-decoration: none;
         background-color: white;  /* change button color here */
         border: 1.5px solid black;
         outline: none;
         display: inline-block;
-        padding: 12px 22px;
-        margin-bottom: 0;
+        padding: ${padding || '12px 22px'};
+        margin: ${margin || '0'};
         font-size: 0.7em;
         font-weight: normal;
         letter-spacing: .12rem;

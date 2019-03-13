@@ -45,14 +45,20 @@ app.prepare()
     app.serveStatic(req, res, filePath)
   })
 
-  server.get('/p/:category', (req, res) => {
+  server.get('/p/:slug', (req, res) => {
     const actualPage = '/product'
-    const queryParams = { title: req.params.category }
+    const queryParams = { slug: req.params.slug }
     app.render(req, res, actualPage, queryParams)
   })
 
-  server.get('/p/:category/:sub', (req, res) => {
-    const actualPage = '/product'
+  server.get('/c/:category', (req, res) => {
+    const actualPage = '/products'
+    const queryParams = { category: req.params.category }
+    app.render(req, res, actualPage, queryParams)
+  })
+
+  server.get('/c/:category/:sub', (req, res) => {
+    const actualPage = '/products'
     const queryParams = { category: req.params.category, sub: req.params.sub } 
     app.render(req, res, actualPage, queryParams)
   })

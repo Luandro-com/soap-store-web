@@ -1,0 +1,25 @@
+query($slug: String) {
+  product(slug: $slug) {
+    id
+    slug
+    name
+    image
+    price
+    description
+    stockQuantity
+    category {
+      id
+      name
+      slug
+    }
+    subCategories {
+      id
+      name
+      slug
+    }
+    variants {
+      id
+      name
+    }
+  }
+}

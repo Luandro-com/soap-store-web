@@ -51,10 +51,10 @@ const Header = ({ router: { pathname }, user, content }) => (
             <div className="category">
               <a>{i.name}</a>
               <div className="products-menu-menu">
-                <Link as={`/p/${i.slug}`} href={`/product?category=${i.slug}`}>
+                <Link as={`/c/${i.slug}`} href={`/products?category=${i.slug}`}>
                   <a>Todos</a>
                 </Link>
-                {i.subCategories.map(sub => <Link key={sub.id} as={`/p/${i.slug}/${sub.slug}`} href={`/product?category=${i.slug}&sub=${sub.slug}`}>
+                {i.subCategories.map(sub => <Link key={sub.id} as={`/c/${i.slug}/${sub.slug}`} href={`/products?category=${i.slug}&sub=${sub.slug}`}>
                   <a>{sub.name}</a>
                 </Link>)}
               </div>
@@ -89,7 +89,7 @@ const Header = ({ router: { pathname }, user, content }) => (
           .logo {
             height: 200px;
             text-align: center;
-            margin: 0 auto;
+            margin: 30px auto 0;
             padding: 30px 0 0;
             max-width: 70%;
             cursor: pointer;
@@ -105,7 +105,7 @@ const Header = ({ router: { pathname }, user, content }) => (
             position: fixed;
             top: 0;
             z-index: 999;
-            height: 40px;
+            height: 60px;
             width: 100%;
             background: white;
             display: flex;
@@ -136,7 +136,7 @@ const Header = ({ router: { pathname }, user, content }) => (
           .products-menu {
             margin: 60px auto;
             width: 100%;
-            max-width: 600px;
+            max-width: 95%;
             display: flex;
             flex-flow: row nowrap;
             align-items: center;

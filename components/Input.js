@@ -1,4 +1,4 @@
-const Input = ({ label, type, width, value, onChange, margin }) => (
+const Input = ({ label, type, width, value, onChange, background, border, margin }) => (
   <span className="wrapper">
     <span className="label">{label}</span>
     {(type === 'textarea') && <textarea
@@ -29,9 +29,9 @@ const Input = ({ label, type, width, value, onChange, margin }) => (
         width: ${width || '100%'};
         max-width: 95%;
         padding: 8px 12px;
-        background: #fff;
-        border: 1px solid #d9d9d9;
-        border-top: 1px solid #c0c0c0;
+        background: ${background || '#fff'};
+        border: ${border || '1px solid #d9d9d9'};
+        border-top: ${border || '1px solid #c0c0c0'};
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
@@ -51,9 +51,9 @@ const Input = ({ label, type, width, value, onChange, margin }) => (
         width: ${width || '100%'};
         max-width: 95%;
         padding: 8px 12px;
-        background: #fff;
-        border: 1px solid #d9d9d9;
-        border-top: 1px solid #c0c0c0;
+        background: ${background || '#fff'};
+        border: ${border || '1px solid #d9d9d9'};
+        border-top: ${border || '1px solid #c0c0c0'};
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
