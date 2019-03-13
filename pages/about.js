@@ -1,25 +1,20 @@
 import App from '../components/App'
-import { Query } from 'react-apollo'
-import ABOUT from '../queries/about.gql'
-import Loading from '../components/Loading'
+import AppData from '../components/AppData'
 
 export default () => (
   <App>
-    <Query query={ABOUT}>
-      {({ data, loading, error }) => {
-        if (loading) return <Loading />
-        if (error) return <h2>error</h2>
-        if (data) {
-          return <article className="container">
-            <div dangerouslySetInnerHTML={{__html: data.content.description }} />
-          </article>
-        }
-      }}
-    </Query>
+    <AppData.Consumer>
+      {({ user, content }) => (
+         <article className="container">
+          <div dangerouslySetInnerHTML={{__html: content.description }} />
+        </article>
+      )}
+    </AppData.Consumer>
     <style jsx>{`
       .container {
         max-width: 768px;
         margin: 0 auto;
+        padding: 0 0 120px;
       }
     `}</style>
   </App>

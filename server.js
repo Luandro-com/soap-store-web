@@ -45,6 +45,11 @@ app.prepare()
     app.serveStatic(req, res, filePath)
   })
 
+  server.get('/cesta', (req, res) => {
+    const actualPage = '/cart'
+    app.render(req, res, actualPage)
+  })
+
   server.get('/p/:slug', (req, res) => {
     const actualPage = '/product'
     const queryParams = { slug: req.params.slug }

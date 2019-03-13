@@ -31,16 +31,25 @@ const Header = ({ router: { pathname }, user, content }) => (
                   <Link prefetch href='/perfil'><a>{user.email}</a></Link>
                 </div>
             </div>}
-            <Link prefetch href='/cesta'>
-              <a className={pathname === '/cesta' ? 'is-active' : ''}><img src="/static/cesta.svg" /></a>
+            <Link prefetch as="cesta" href='/cart'>
+              <a className={pathname === '/cart' ? 'is-active' : ''}><img src="/static/cesta.svg" /></a>
             </Link>
           </div>
           <div className="left-menu">
             <Link prefetch href='/about'>
               <a>Sobre</a>
             </Link>
-            <Scroll.Link to="contact" smooth={true} duration={500}>
-              <a style={{ position: 'relative', top: -4}}>Contato</a>
+            <Scroll.Link
+              to="contact"
+              smooth={true}
+              duration={500}
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: '.11em',
+                fontStyle: 'normal',
+              }}>
+              Contato
             </Scroll.Link>
           </div>
         </nav>
@@ -130,10 +139,6 @@ const Header = ({ router: { pathname }, user, content }) => (
           .left-menu a {
             margin: 0 5px;
           }
-          .user img {
-            height: 22px;
-            padding: 15px 10px;
-          }
           .products-menu {
             margin: 60px auto;
             width: 100%;
@@ -179,9 +184,13 @@ const Header = ({ router: { pathname }, user, content }) => (
           .products-menu-menu *:hover {
             top: inherit;
           }
+          .user img {
+            height: 25px;
+            padding: 15px 10px;
+          }
           .profile-pic {
-            height: 22px;
-            width: 22px;
+            height: 25px;
+            width: 25px;
             background: ${(user && user.image) ? `url(${user.image})` : 'black'};
             border-radius: 50%;
           }

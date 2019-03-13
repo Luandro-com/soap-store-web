@@ -6,7 +6,7 @@ export default ({ id, image, name, slug }) => (
     <article>
       <div className="image" style={{ backgroundImage: `url(${image})`}} />
       <h2>{name}</h2>
-      <Button to={`/p/${id}`}>Informações</Button>
+      <Button to={`/p/${slug}`}>Informações</Button>
       <style jsx>{`
         article {
           margin: 0 auto;

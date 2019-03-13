@@ -4,5 +4,10 @@ query {
     image
     id
     role
+    cart {
+      products {
+        id
+      }
+    }
   }
 }

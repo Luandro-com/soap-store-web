@@ -1,0 +1,3 @@
+mutation($productId: Int! $quantity: Int!) {
+    addOrRemoveFromCart(productId: $productId quantity: $quantity) @client
+  }

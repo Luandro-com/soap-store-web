@@ -1,15 +1,20 @@
 import Router from 'next/router'
 import colors from '../lib/colors'
 
-const Button = ({ children, to, color, padding, margin }) => (
+const route = (to, e) => {
+  e.preventDefault()
+  if (to) {
+    Router.push(to)
+  }
+}
+
+const Button = ({ children, to, color, padding, margin, onClick }) => (
   <span>
      <button
       className=".btn"
       onClick={(e) => {
-        e.preventDefault()
-        if (to) {
-          Router.push(to)
-        }
+        to ? route(to, e)
+        : onClick(e)
       }}
     >
       {children}
