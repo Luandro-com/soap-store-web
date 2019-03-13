@@ -23,7 +23,7 @@ export default class SimpleExample extends Component {
   render() {
     const position = [this.state.lat, this.state.lng]
     return (
-      <section>
+      <section id="contact" >
         <Map
           center={position}
           zoom={this.state.zoom}

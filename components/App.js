@@ -6,6 +6,7 @@ import { logout } from '../lib/auth'
 import USER from '../queries/user.gql'
 import CONTENT from '../queries/content.gql'
 import Header from './Header'
+import Contact from './Contact'
 import Loading from '../components/Loading'
 import colors from '../lib/colors'
 import AppData from './AppData'
@@ -28,7 +29,7 @@ export default class extends Component {
                     <AppData.Provider value={{ user: userData, content: contentData }}>
                       {this.props.children}
                     </AppData.Provider>
-                    <div className="footer"></div>
+                    <Contact />
                     <style jsx global>{`
                       * {
                         font-family: roboto;
@@ -89,10 +90,6 @@ export default class extends Component {
                       button:disabled {
                         background-color: gray;
                       }
-                      // .footer {
-                      //   padding-top: 80px;
-                      //   width: 100%;
-                      // }
                     `}</style>
                   </main>
                 )

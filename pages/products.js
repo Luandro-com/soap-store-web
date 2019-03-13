@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Router from 'next/router'
 import App from '../components/App'
 import ProductList from '../components/ProductList'
-import Contact from '../components/Contact'
 
 class Products extends Component {
   render () {
@@ -11,7 +10,6 @@ class Products extends Component {
         <App>
           <main>
             <ProductList variables={Router.router.query} />
-            <Contact />
           </main>
           <style jsx>{`
             main * {

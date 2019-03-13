@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { withRouter } from 'next/router'
-import { logout } from '../lib/auth'
 import { Query } from 'react-apollo'
+import * as Scroll from 'react-scroll'
+import { logout } from '../lib/auth'
 import colors from '../lib/colors'
 import PRODUCT_CATEGORIES from '../queries/productCategories.gql'
 
@@ -38,9 +39,9 @@ const Header = ({ router: { pathname }, user, content }) => (
             <Link prefetch href='/about'>
               <a>Sobre</a>
             </Link>
-            <Link prefetch href='/contact'>
-              <a>Contato</a>
-            </Link>
+            <Scroll.Link to="contact" smooth={true} duration={500}>
+              <a style={{ position: 'relative', top: -4}}>Contato</a>
+            </Scroll.Link>
           </div>
         </nav>
         <nav className="products-menu">
