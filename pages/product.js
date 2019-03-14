@@ -9,7 +9,7 @@ import Price from '../components/Price'
 import Input from '../components/Input'
 import Button from '../components/Button'
 
-import PRODUCT from '../queries/product.gql'
+import PRODUCT_BY_SLUG from '../queries/productBySlug.gql'
 import ADD_TO_CART from '../queries/addToCart.gql'
 import ADD_TO_LOCAL_CART from '../queries/addToLocalCart.gql'
 
@@ -21,7 +21,7 @@ class Product extends Component {
         <App>
           <AppData.Consumer>
             {({ user }) => (
-              <Query query={PRODUCT} variables={{ slug }}>
+              <Query query={PRODUCT_BY_SLUG} variables={{ slug }}>
                 {({ data, loading, error }) => {
                   if (loading) return <Loading />
                   if (error) return <h2>error</h2>
@@ -60,6 +60,8 @@ class Product extends Component {
                                     console.log('RES', res)
                                   } else {
                                     const res = await addToCart({ variables: { productId: id, quantity: 1 }})
+                                    const data = JSON.stringify(res.data.addOrRemoveFromCart)
+                                    {window && window.localStorage.setItem('localCart', data)}
                                     console.log('RES', res)
                                   }
                                 }}

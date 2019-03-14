@@ -10,10 +10,13 @@ const Map = dynamic(import('./Map'), {
   )
 })
 
-const Contact = () => <div>
+const Contact = () => <main>
   <Map />
   <div className="footer">Com <span color="red">❤</span> por <a href="https://luandro.com">Luandro</a></div>
   <style jsx>{`
+    main {
+      padding: 80px 0 0;
+    }
     .footer {
       padding-top: 80px;
       width: 100%;
@@ -24,6 +27,6 @@ const Contact = () => <div>
       
     }
   `}</style>
-</div>
+</main>
 
 export default Contact

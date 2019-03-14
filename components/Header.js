@@ -6,13 +6,12 @@ import { logout } from '../lib/auth'
 import colors from '../lib/colors'
 import PRODUCT_CATEGORIES from '../queries/productCategories.gql'
 
-const Header = ({ router: { pathname }, user, content }) => (
+const Header = ({ router: { pathname }, user, content, cart }) => (
   <Query query={PRODUCT_CATEGORIES}>
       {({ data, loading, error, client }) => (
       <header>
         <Link prefetch href='/'>
           <div className="logo">
-            {console.log(content)}
             {(content && content.logo) && <img src={content.logo} />}
             {(content && content.title) && <h1 className={content.logo ? 'hidden' : ''}>{content.title}</h1>}
             {!content && <img src={process.env.LOGO} />}
@@ -33,8 +32,11 @@ const Header = ({ router: { pathname }, user, content }) => (
                   <Link prefetch href='/perfil'><a>{user.email}</a></Link>
                 </div>
             </div>}
-            <Link prefetch as="cesta" href='/cart'>
-              <a className={pathname === '/cart' ? 'is-active' : ''}><img src="/static/cesta.svg" /></a>
+            <Link prefetch as="/cesta" href='/cart'>
+              <div>
+                <a className={pathname === '/cart' ? 'is-active' : ''}><img src="/static/cesta.svg" /></a>
+                <span className="cartNumber">{(cart && cart !== 'loading') && <h3>{cart.length}</h3>}</span>
+              </div>
             </Link>
           </div>
           <div className="left-menu">
@@ -61,7 +63,7 @@ const Header = ({ router: { pathname }, user, content }) => (
           </Link> */}
           {(data && data.productCategories) && data.productCategories.map(i => <div key={i.id}>
             <div className="category">
-              <a>{i.name}</a>
+              <Link as={`/c/${i.slug}`} href={`/products?category=${i.slug}`}><a>{i.name}</a></Link>
               <div className="products-menu-menu">
                 <Link as={`/c/${i.slug}`} href={`/products?category=${i.slug}`}>
                   <a>Todos</a>
@@ -149,6 +151,15 @@ const Header = ({ router: { pathname }, user, content }) => (
             flex-flow: row nowrap;
             align-items: center;
             justify-content: space-around;
+          }
+          .cartNumber {
+            text-align: center;
+            font-size: 7.5px;
+            font-weight: 900;
+            color: red;
+            position: fixed;
+            right: 45px;
+            top: 20px;
           }
           a {
             font-size: 10px;

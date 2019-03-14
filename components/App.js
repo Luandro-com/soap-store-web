@@ -25,15 +25,14 @@ export default class extends Component {
             <Query query={LOCAL_CART}>
               {({ loading: loadingCart, error: errorCart, data: dataCart, client }) => {
                 let cartData = loadingCart ? 'loading' : (errorCart ? null : dataCart.localCart)
-                console.log('cartData', cartData)
                 return (
                   <Query query={CONTENT}>
                     {({ loading: loadingContent, error: errorContent, data: dataContent }) => {
                       const contentData = loadingContent ? 'loading' : (errorContent ? null : dataContent.content)
                       return (
                         <main>
-                          <Header user={userData} content={contentData} />
-                          <AppData.Provider value={{ user: userData, content: contentData }}>
+                          <Header user={userData} content={contentData} cart={cartData} />
+                          <AppData.Provider value={{ user: userData, content: contentData, cart: cartData }}>
                             {this.props.children}
                           </AppData.Provider>
                           <Contact />
