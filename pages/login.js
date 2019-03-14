@@ -5,6 +5,7 @@ import LOGIN from '../queries/login.gql'
 import { setToken, checkToken } from '../lib/auth'
 import App from '../components/App'
 import AppData from '../components/AppData'
+import ADD_TO_CART from '../queries/addToCart.gql'
 
 class Login extends Component {
   static contextType = AppData 
@@ -17,6 +18,44 @@ class Login extends Component {
     this.setState({
       [name]: event.target.value,
     })
+  }
+
+  updateUserCart = async (res, client) => {
+    let localCart = null
+    if (window) {
+      localCart = window.localStorage.getItem('localCart')
+    }
+    const parsed = JSON.parse(localCart)
+    console.log('parsed', parsed)
+    if(parsed && parsed.length > 0) {
+      parsed.map(i => {
+        client.mutate({
+          mutation: ADD_TO_CART,
+          variables: { input: {
+            productId: i.product,
+            quantity: i.quantity
+          }}
+        })
+        .then(updateCart => {
+          console.log('updated database cart', updateCart)
+          console.log('merge with this', res.data.login.user)
+
+        })
+        .catch(err => console.log(err))
+      })
+    }
+    // delete local cart from local storage
+    if (window) {
+      window.localStorage.removeItem('localCart')
+    }
+    setToken(res.data.login.token)
+    client.writeData({ data: {
+      user: {
+        __typename: 'user',
+      ...res.data.login.user,
+      }
+    }})
+    Router.push('/')
   }
 
   render() {
@@ -36,14 +75,7 @@ class Login extends Component {
                     e.preventDefault()
                     const res = await login({ variables: { email, password }})
                     if (res && res.data.login.token) {
-                      setToken(res.data.login.token)
-                      clientLogin.writeData({ data: {
-                        user: {
-                          __typename: 'user',
-                        ...res.data.login.user,
-                        }
-                      }})
-                      Router.push('/')
+                      this.updateUserCart(res, clientLogin)
                     }
                   }}>
                     <input

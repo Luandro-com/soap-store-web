@@ -57,12 +57,18 @@ class Product extends Component {
                                 onClick={async (e) => {
                                   if (user) {
                                     const res = await addToCart({ variables: { input: { productId: id, quantity: 1 }}})
-                                    console.log('RES', res)
+                                    clientAddToCart.writeData({ data: {
+                                      cart: {
+                                      ...res.data.addToCart
+                                      }
+                                    }})
+                                    // console.log('db add', res)
                                   } else {
-                                    const res = await addToCart({ variables: { productId: id, quantity: 1 }})
+                                    // console.log('price', price)
+                                    const res = await addToCart({ variables: { productId: id, quantity: 1, price }})
                                     const data = JSON.stringify(res.data.addOrRemoveFromCart)
                                     {window && window.localStorage.setItem('localCart', data)}
-                                    console.log('RES', res)
+                                    // console.log('local add', res)
                                   }
                                 }}
                               >
@@ -123,7 +129,7 @@ class Product extends Component {
         </App>
       )
     } else {
-      return <h1>Redirecionando...</h1>
+      return <Loading />
     }
   }
 }

@@ -33,9 +33,9 @@ const Header = ({ router: { pathname }, user, content, cart }) => (
                 </div>
             </div>}
             <Link prefetch as="/cesta" href='/cart'>
-              <div>
+              <div className="cart-container">
                 <a className={pathname === '/cart' ? 'is-active' : ''}><img src="/static/cesta.svg" /></a>
-                <span className="cartNumber">{(cart && cart !== 'loading') && <h3>{cart.length}</h3>}</span>
+                <span className="cart-number">{(cart && cart !== 'loading') && <h3>{user ? cart.products.length : cart.length }</h3>}</span>
               </div>
             </Link>
           </div>
@@ -152,7 +152,10 @@ const Header = ({ router: { pathname }, user, content, cart }) => (
             align-items: center;
             justify-content: space-around;
           }
-          .cartNumber {
+          .cart-container, .cart-number {
+            pointer: cursor;
+          }
+          .cart-number {
             text-align: center;
             font-size: 7.5px;
             font-weight: 900;

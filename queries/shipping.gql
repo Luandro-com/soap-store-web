@@ -1,0 +1,20 @@
+query($input: ShippingInput!) {
+  shipping(input: $input) {
+ 		sedex {
+      value
+      deliveryDays
+      valueWithoutAddition
+      valueHandling
+      valueReceive
+      valueDeclaredValue
+    }
+    pac {
+      value
+      deliveryDays
+      valueWithoutAddition
+      valueHandling
+      valueReceive
+      valueDeclaredValue
+    }
+  }
+}

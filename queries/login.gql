@@ -6,6 +6,19 @@ mutation($email: String!, $password: String!) {
       id
       email
       role
+      cart {
+        id
+        products {
+          quantity
+          product {
+            id
+            name
+            price
+            image
+            slug
+          }
+        }
+      }
     }
   }
 }

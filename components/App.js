@@ -19,11 +19,11 @@ export default class extends Component {
   render() {
     return (
       <Query query={USER}>
-        {({ loading: loadingUser, error: errorUser, data: dataUser, client }) => {
+        {({ loading: loadingUser, error: errorUser, data: dataUser, client: queryClient }) => {
           let userData = loadingUser ? 'loading' : (errorUser ? null : dataUser.user)
           return (
             <Query query={LOCAL_CART}>
-              {({ loading: loadingCart, error: errorCart, data: dataCart, client }) => {
+              {({ loading: loadingCart, error: errorCart, data: dataCart, client: localClient }) => {
                 let cartData = loadingCart ? 'loading' : (errorCart ? null : dataCart.localCart)
                 return (
                   <Query query={CONTENT}>
@@ -31,8 +31,8 @@ export default class extends Component {
                       const contentData = loadingContent ? 'loading' : (errorContent ? null : dataContent.content)
                       return (
                         <main>
-                          <Header user={userData} content={contentData} cart={cartData} />
-                          <AppData.Provider value={{ user: userData, content: contentData, cart: cartData }}>
+                          <Header user={userData} content={contentData} cart={userData ? userData.cart : cartData} />
+                          <AppData.Provider value={{ user: userData, content: contentData, cart: userData ? userData.cart : cartData, client: queryClient }}>
                             {this.props.children}
                           </AppData.Provider>
                           <Contact />
@@ -57,6 +57,8 @@ export default class extends Component {
                               box-sizing: border-box;
                               transition: all 500ms ease; 
                               cursor: pointer;
+                              text-decoration: none;
+                              color: black;
                               }
                             }
                             a:before {
@@ -79,7 +81,7 @@ export default class extends Component {
                             }
                             article {
                               margin: 0 auto;
-                              max-width: 650px;
+                              // max-width: 650px;
                             }
                             button {
                               align-items: center;

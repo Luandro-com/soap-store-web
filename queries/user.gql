@@ -5,8 +5,16 @@ query {
     id
     role
     cart {
+      id
       products {
-        id
+        quantity
+        product {
+          id
+          name
+          price
+          image
+          slug
+        }
       }
     }
   }
