@@ -1,29 +1,29 @@
 import React, { Component } from 'react'
-import { Query, Mutation } from 'react-apollo'
+import Router from 'next/router'
 import App from '../components/App'
-// import ISSUE from '../queries/issues.gql'
 import Loading from '../components/Loading'
+import AppData from '../components/AppData'
 
-class ISSUE extends Component {
+class Profile extends Component {
     render () {
       return (
         <App>
-          {/* <Query query={ISSUE}>
-            {({ data, loading, error }) => {
-              if (loading) return <Loading />
-              if (error) return <h2>error</h2>
-              if (data) {
-                return ( */}
-                  <div>
-                    <h1>ISSUE</h1>
-                  </div>
-                {/* )
+          <AppData.Consumer>
+            {({ user }) => {
+              if (user) {
+                return <div>
+                  <h1>Perfil</h1>
+                  <h3>{user.email}</h3>
+                </div>
+              } else {
+                Router.push('/login')
+                return <h3>Redirecionando...</h3>
               }
             }}
-          </Query> */}
+          </AppData.Consumer>
         </App>
       )
     }
 }
 
-export default ISSUE
+export default Profile

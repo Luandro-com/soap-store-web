@@ -50,6 +50,11 @@ app.prepare()
     app.render(req, res, actualPage)
   })
 
+  server.get('/perfil', (req, res) => {
+    const actualPage = '/profile'
+    app.render(req, res, actualPage)
+  })
+
   server.get('/p/:slug', (req, res) => {
     const actualPage = '/product'
     const queryParams = { slug: req.params.slug }

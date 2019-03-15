@@ -29,7 +29,7 @@ const Header = ({ router: { pathname }, user, content, cart }) => (
                 <a className={pathname === '/profile' ? 'is-active' : ''} className="profile-pic"></a>
                 <div className="profile-menu">
                   <a onClick={(e) => logout(client, e)} href=''>sair</a>
-                  <Link prefetch href='/perfil'><a>{user.email}</a></Link>
+                  <Link prefetch href='/profile' as='/perfil'><a>{user.email}</a></Link>
                 </div>
             </div>}
             <Link prefetch as="/cesta" href='/cart'>
