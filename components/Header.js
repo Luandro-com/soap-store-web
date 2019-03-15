@@ -28,7 +28,7 @@ const Header = ({ router: { pathname }, user, content, cart }) => (
             {(user && user !== 'loading') && <div className="profile-container">
                 <a className={pathname === '/profile' ? 'is-active' : ''} className="profile-pic"></a>
                 <div className="profile-menu">
-                  <a onClick={() => logout(client)} href=''>sair</a>
+                  <a onClick={(e) => logout(client, e)} href=''>sair</a>
                   <Link prefetch href='/perfil'><a>{user.email}</a></Link>
                 </div>
             </div>}
@@ -214,6 +214,7 @@ const Header = ({ router: { pathname }, user, content, cart }) => (
             display: flex;
             flex-flow: column;
             justify-content: center;
+
           }
           .profile-menu {
             position: absolute;
@@ -222,6 +223,8 @@ const Header = ({ router: { pathname }, user, content, cart }) => (
             right: 60px;
             display: flex;
             flex-flow: column;
+            background: white;
+            padding: 5px 10px 30px;
           }
           .profile-container:hover .profile-menu {
             top: 45px;

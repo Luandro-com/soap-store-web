@@ -12,6 +12,7 @@ import Button from '../components/Button'
 import PRODUCT_BY_SLUG from '../queries/productBySlug.gql'
 import ADD_TO_CART from '../queries/addToCart.gql'
 import ADD_TO_LOCAL_CART from '../queries/addToLocalCart.gql'
+import USER from '../queries/user.gql'
 
 class Product extends Component {
   render () {
@@ -49,7 +50,19 @@ class Product extends Component {
                               border="0"
                             />
                           </div>
-                          <Mutation mutation={user ? ADD_TO_CART : ADD_TO_LOCAL_CART}>
+                          <Mutation
+                            mutation={user ? ADD_TO_CART : ADD_TO_LOCAL_CART}
+                            update={(cache, { data }) => {
+                              console.log('USER TO WRITE', user)
+                              console.log('DATA TO WRITE', data.addToCart)
+                              let newUser = user
+                              newUser.cart = data.addToCart
+                              cache.writeQuery({
+                                query: USER,
+                                data: { user: newUser },
+                              })
+                            }}    
+                          >
                             {(addToCart, { error: errorAddToCart, client: clientAddToCart }) => (
                               <Button
                                 padding="24px 25px"
@@ -57,18 +70,12 @@ class Product extends Component {
                                 onClick={async (e) => {
                                   if (user) {
                                     const res = await addToCart({ variables: { input: { productId: id, quantity: 1 }}})
-                                    clientAddToCart.writeData({ data: {
-                                      cart: {
-                                      ...res.data.addToCart
-                                      }
-                                    }})
-                                    // console.log('db add', res)
+                                    console.log('RES addtocart cloud', res)
                                   } else {
-                                    // console.log('price', price)
                                     const res = await addToCart({ variables: { productId: id, quantity: 1, price }})
+                                    console.log('RES addtocart local', res)
                                     const data = JSON.stringify(res.data.addOrRemoveFromCart)
                                     {window && window.localStorage.setItem('localCart', data)}
-                                    // console.log('local add', res)
                                   }
                                 }}
                               >

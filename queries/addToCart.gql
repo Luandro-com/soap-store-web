@@ -4,6 +4,13 @@ mutation($input: CartInput!){
     products {
       id
       quantity
+      product {
+        id
+        name
+        price
+        image
+        slug
+      }
     }
   }
 }

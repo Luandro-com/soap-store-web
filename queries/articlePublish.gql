@@ -1,6 +1,0 @@
-mutation($articleId: ID!) {
-  publishArticle(articleId: $articleId) {
-    id
-    published
-  }
-}

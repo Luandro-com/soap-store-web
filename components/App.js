@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Router from 'next/router'
 import { Query } from 'react-apollo'
 import * as gtag from '../lib/gtag'
-import { logout } from '../lib/auth'
 import USER from '../queries/user.gql'
 import CONTENT from '../queries/content.gql'
 import LOCAL_CART from '../queries/localCart.gql'
@@ -21,6 +20,7 @@ export default class extends Component {
       <Query query={USER}>
         {({ loading: loadingUser, error: errorUser, data: dataUser, client: queryClient }) => {
           let userData = loadingUser ? 'loading' : (errorUser ? null : dataUser.user)
+          console.log('APP USER', userData)
           return (
             <Query query={LOCAL_CART}>
               {({ loading: loadingCart, error: errorCart, data: dataCart, client: localClient }) => {

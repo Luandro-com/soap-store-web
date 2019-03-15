@@ -31,7 +31,7 @@ class CartTotal extends Component {
       }}
     })
     .then(res => {
-      this.props.handleShipping(res.data.shipping.pac.value)
+      this.props.handleShipping(res.data.shipping)
       this.setState({
         shippingZip: 'Mudar CEP para entrega',
         shippingLoading: false,
@@ -59,8 +59,8 @@ class CartTotal extends Component {
           {shippingError && <span>Erro!</span>}
         </div>
         {shippingValue && <div className="finish-total">
-          <h3>Entrega: <Price value={shippingValue} /> </h3>
-          <h3>Total: <Price value={total + shippingValue} /></h3>
+          <h3>Entrega: <Price value={shippingValue.pac.value} /> em  {shippingValue.pac.deliveryDays} dias</h3>
+          <h3>Total: <Price value={total + shippingValue.pac.value} /></h3>
         </div>}
         <Button onClick={onClick}>Finalizar compra</Button>
         <style jsx>{`

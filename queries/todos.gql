@@ -1,8 +1,0 @@
-query {
-    todos @client {
-      id
-      completed
-      text
-    }
-    visibilityFilter @client
-}
