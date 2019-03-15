@@ -1,11 +1,12 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
+import Loading from '../components/Loading'
 
 const Map = dynamic(import('./Map'), {
   ssr: false,
   loading: () => (
     <div style={{textAlign: 'center', paddingTop: 20}}>
-      Loading....
+      <Loading />
     </div>
   )
 })
