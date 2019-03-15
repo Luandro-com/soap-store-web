@@ -159,7 +159,7 @@ const Header = ({ router: { pathname }, user, content, cart }) => (
             text-align: center;
             font-size: 7.5px;
             font-weight: 900;
-            color: red;
+            color: ${colors.color3};
             position: fixed;
             right: 45px;
             top: 20px;
