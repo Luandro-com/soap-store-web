@@ -1,0 +1,9 @@
+query($code: Int!) {
+  zip(code: $code) {
+    street
+    complement
+    district
+    city
+    state
+  }
+}

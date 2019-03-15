@@ -4,6 +4,22 @@ query {
     image
     id
     role
+    firstName
+    lastName
+    addresses {
+      id
+      type
+      street
+      number
+      complement
+      zip
+      district
+      city
+      state
+      country
+      firstName
+      lastName
+    }
     cart {
       id
       products {

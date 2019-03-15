@@ -59,7 +59,7 @@ class CartTotal extends Component {
   }
   render () {
     const { shippingZip, shippingError, shippingLoading, shippingOption } = this.state
-    const { shippingValue, client, total, onClick } = this.props
+    const { shippingValue, client, total, onClick, addressOpen } = this.props
     return (
       <div className="finish">
         <hr />
@@ -97,7 +97,7 @@ class CartTotal extends Component {
           <h3>Entrega: <Price value={shippingValue[shippingOption].value} /> em  {shippingValue[shippingOption].deliveryDays} dias</h3>
           <h3>Total: <Price value={total + shippingValue[shippingOption].value} /></h3>
         </div>}
-        <Button onClick={onClick}>Finalizar compra</Button>
+        {!addressOpen && <Button onClick={onClick}>Finalizar compra</Button>}
         <style jsx>{`
           .finish {
             padding-top: 20px;

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import * as Scroll from 'react-scroll'
 import App from '../components/App'
 import AppData from '../components/AppData'
 import CartList from '../components/CartList'
 import CartTotal from '../components/CartTotal'
 import AuthForm from '../components/AuthForm'
+import CartAddress from '../components/CartAddress'
 
 class Cart extends Component {
   constructor(props) {
@@ -14,6 +16,7 @@ class Cart extends Component {
   state = {
     shippingValue: null,
     loginModal: false,
+    addressOpen: false,
   }
   toggleModal() {
     this.setState({
@@ -25,15 +28,26 @@ class Cart extends Component {
       shippingValue
     })
   }
-  handleFinalize(user) {
+  handleNext(user) {
     if (!user) {
       this.toggleModal()
     }
-    console.log('Clicks@')
+    this.setState({
+      addressOpen: true
+    }, () => Scroll.animateScroll.scrollMore(500, {
+      duration: 500,
+      delay: 100,
+      smooth: true,
+    }))
 
   }
+  handleCheckout(data) {
+    // save address
+    // saveOrder
+    // open checkout box
+  }
   render () {
-    const { shippingValue, loginModal } = this.state
+    const { shippingValue, loginModal, addressOpen } = this.state
     return (
       <App>
         <AppData.Consumer>
@@ -55,12 +69,16 @@ class Cart extends Component {
                   client={client}
                   total={total}
                   shippingValue={shippingValue}
+                  addressOpen={addressOpen}
                   handleShipping={this.handleShippingValue}
-                  onClick={() => this.handleFinalize(user)}
+                  onClick={() => this.handleNext(user)}
                 />}
                 {!user && <div className={loginModal ? 'modal-open' : 'modal-closed'}>
                   <AuthForm action={this.toggleModal} />
                 </div>}
+                <div className={addressOpen ? "cart-address" : "modal-closed"}>
+                  <CartAddress client={client} user={user} />
+                </div>
               </main>
             )
           }}
@@ -84,6 +102,9 @@ class Cart extends Component {
             border: 1px solid grey;
             background: white;
             padding: 30px;
+          }
+          .cart-address {
+            padding-top: 100px;
           }
         `}</style>
       </App>
