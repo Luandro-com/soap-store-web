@@ -15,7 +15,19 @@ import ADD_TO_LOCAL_CART from '../queries/addToLocalCart.gql'
 import USER from '../queries/user.gql'
 
 class Product extends Component {
+  state = {
+    quantity: 1,
+  }
+  handleChange = (name, stockQuantity) => event => {
+    const { quantity } = this.state
+    if (name === 'quantity' && (quantity + 1 <= stockQuantity) && (event.target.value > 0)) {
+      this.setState({
+        [name]: parseInt(event.target.value),
+      })
+    }
+  }
   render () {
+    const { quantity } = this.state
     let slug = null
     if (Router.router) {
       slug = Router.router.query.slug
@@ -48,9 +60,10 @@ class Product extends Component {
                               <br />
                               <Input
                                 type="number"
-                                value={{stockQuantity}}
+                                value={quantity}
+                                onChange={this.handleChange('quantity', stockQuantity)}
                                 width="100px"
-                                background="rgba(0,0,0,.05)"
+                                background="rgba(0,0,0,.2)"
                                 border="0"
                               />
                             </div>
@@ -75,10 +88,10 @@ class Product extends Component {
                                   margin="35px auto 0"
                                   onClick={async (e) => {
                                     if (user) {
-                                      const res = await addToCart({ variables: { input: { productId: id, quantity: 1 }}})
+                                      const res = await addToCart({ variables: { input: { productId: id, quantity }}})
                                       console.log('RES addtocart cloud', res)
                                     } else {
-                                      const res = await addToCart({ variables: { productId: id, quantity: 1, price }})
+                                      const res = await addToCart({ variables: { productId: id, quantity, price }})
                                       console.log('RES addtocart local', res)
                                       const data = JSON.stringify(res.data.addOrRemoveFromCart)
                                       {window && window.localStorage.setItem('localCart', data)}

@@ -13,7 +13,7 @@ const Map = dynamic(import('./Map'), {
 
 const Contact = () => <main>
   <Map />
-  <div className="footer">Com <span color="red">❤</span> por <a href="https://luandro.com">Luandro</a></div>
+  {/* <div className="footer">Com <span color="red">❤</span> por <a href="https://luandro.com">Luandro</a></div> */}
   <style jsx>{`
     main {
       padding: 80px 0 0;
