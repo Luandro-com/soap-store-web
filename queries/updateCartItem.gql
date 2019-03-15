@@ -1,0 +1,16 @@
+mutation($input: CartInput!) {
+  updateCartItem(input: $input) {
+    id
+    products {
+      id
+      quantity
+      product {
+        id
+        name
+        price
+        image
+        slug
+      }
+    }
+  }
+}

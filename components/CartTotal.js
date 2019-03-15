@@ -94,7 +94,6 @@ class CartTotal extends Component {
               }
             })}
           </div>
-          {console.log(shippingValue)}
           <h3>Entrega: <Price value={shippingValue[shippingOption].value} /> em  {shippingValue[shippingOption].deliveryDays} dias</h3>
           <h3>Total: <Price value={total + shippingValue[shippingOption].value} /></h3>
         </div>}

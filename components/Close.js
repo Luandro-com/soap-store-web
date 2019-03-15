@@ -1,4 +1,4 @@
-export default ({ style, color, size }) => <a href="#" className="close-button" style={style}>
+export default ({ style, color, size, onClick }) => <a onClick={onClick} className="close-button" style={style}>
   <style jsx>{`
     .close-button {
       height: ${size ? size+'px' : '50px'};

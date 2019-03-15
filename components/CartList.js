@@ -7,10 +7,9 @@ export default ({ cart, content, user }) => {
     <div>
       <h1>Cesta</h1>
       {!content && <Error />}
-      {/* {console.log('CART', cart)} */}
       {(cart === 'loading') && <Loading />}
       {(!user && cart && cart !== 'loading') && cart.map(i => <CartItem key={i.product} product={i.product} quantity={i.quantity} />)}
-      {(user && cart && cart !== 'loading') && cart.products.map(i => <CartItem key={i.product.id} product={i.product} quantity={i.quantity} />)}
+      {(user && cart && cart !== 'loading') && cart.products.map(i => <CartItem key={i.product.id} product={i.product} quantity={i.quantity} user={user} />)}
       {(cart && cart !== 'loading' && cart.length < 1) && <h2>Sua cesta está vazia.</h2>}
       <style jsx>{`
           h1 {

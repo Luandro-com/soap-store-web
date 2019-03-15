@@ -1,0 +1,16 @@
+mutation($productId: String!) {
+  removeCartItem(productId: $productId) {
+    id
+    products {
+      id
+      quantity
+      product {
+        id
+        name
+        price
+        image
+        slug
+      }
+    }
+  }
+}

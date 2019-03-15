@@ -1,3 +1,3 @@
-mutation($productId: Int! $quantity: Int! $price: Int!) {
+mutation($productId: Int! $quantity: Int! $price: Int) {
     addOrRemoveFromCart(productId: $productId quantity: $quantity price: $price) @client
   }

@@ -11,7 +11,7 @@ import Button from '../components/Button'
 
 import PRODUCT_BY_SLUG from '../queries/productBySlug.gql'
 import ADD_TO_CART from '../queries/addToCart.gql'
-import ADD_TO_LOCAL_CART from '../queries/addToLocalCart.gql'
+import ADD_TO_LOCAL_CART from '../queries/addOrRemoveFromCart.gql'
 import USER from '../queries/user.gql'
 
 class Product extends Component {
@@ -35,8 +35,9 @@ class Product extends Component {
     return (
       <App>
         <AppData.Consumer>
-          {({ user }) => {
+          {({ user, cart }) => {
             if (slug) {
+              console.log('CART', cart)
               return (
                 <Query query={PRODUCT_BY_SLUG} variables={{ slug }}>
                   {({ data, loading, error }) => {
@@ -91,10 +92,12 @@ class Product extends Component {
                                       const res = await addToCart({ variables: { input: { productId: id, quantity }}})
                                       console.log('RES addtocart cloud', res)
                                     } else {
-                                      const res = await addToCart({ variables: { productId: id, quantity, price }})
+                                      let currentQuantity
+                                      const exists = cart.findIndex(i => i.product === id)
+                                      if (exists !== -1) currentQuantity = cart[exists].quantity   
+                                      else currentQuantity = 0                                   
+                                      const res = await addToCart({ variables: { productId: id, quantity: currentQuantity + quantity, price }})
                                       console.log('RES addtocart local', res)
-                                      const data = JSON.stringify(res.data.addOrRemoveFromCart)
-                                      {window && window.localStorage.setItem('localCart', data)}
                                     }
                                   }}
                                 >
