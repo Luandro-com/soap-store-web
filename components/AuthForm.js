@@ -4,6 +4,7 @@ import LOGIN from '../queries/login.gql'
 import SIGNUP from '../queries/signup.gql'
 import USER from '../queries/user.gql'
 import updateUserCart from '../lib/updateCart'
+import validateEmail from '../lib/validateEmail'
 import AppData from './AppData'
 
 class AuthForm extends Component {
@@ -55,14 +56,17 @@ class AuthForm extends Component {
               {(auth, { error, client }) => (
                 <form autoComplete="off" onSubmit={async (e) => {
                   e.preventDefault()
-                  const res = await auth({ variables: { email, password }})
-                  if (signup) {
-                    if (res && res.data.signup.token) {
-                      updateUserCart(res.data.signup.user, res.data.signup.token, client, action)
-                    }
-                  } else {
-                    if (res && res.data.login.token) {
-                      updateUserCart(res.data.login.user, res.data.login.token, client, action)
+                  const valid = validateEmail(email)
+                  if (valid) {
+                    const res = await auth({ variables: { email, password }})
+                    if (signup) {
+                      if (res && res.data.signup.token) {
+                        updateUserCart(res.data.signup.user, res.data.signup.token, client, action)
+                      }
+                    } else {
+                      if (res && res.data.login.token) {
+                        updateUserCart(res.data.login.user, res.data.login.token, client, action)
+                      }
                     }
                   }
                 }}>

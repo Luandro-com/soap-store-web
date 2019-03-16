@@ -1,0 +1,16 @@
+mutation($input: AddressInput) {
+  saveAddress(input: $input) {
+    id
+    type
+    street
+    number
+    complement
+    zip
+    district
+    city
+    state
+    country
+    firstName
+    lastName
+  }
+}

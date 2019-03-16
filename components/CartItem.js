@@ -33,12 +33,19 @@ class Product extends Component {
     })
   }
   handleChange = updateCartItem => event => {
-    const { id, user } = this.props
+    const { id, user, stockQuantity } = this.props
     const value = parseInt(event.target.value)
-    if (value >= 0) {
+    if (value > stockQuantity) {
+      const variableInput = user ? { input: { productId: id, quantity: stockQuantity }} : { productId: id, quantity: stockQuantity }
+      this.setState({
+        input: stockQuantity,
+      }, () => {
+        updateCartItem({ variables: variableInput })
+      })
+    } else if (value >= 0) {
       const variableInput = user ? { input: { productId: id, quantity: value }} : { productId: id, quantity: value }
       this.setState({
-        input: event.target.value,
+        input: value,
       }, () => {
         updateCartItem({ variables: variableInput })
       })

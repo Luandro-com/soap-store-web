@@ -8,9 +8,10 @@ const route = (to, e) => {
   }
 }
 
-const Button = ({ children, to, color, padding, margin, onClick }) => (
+const Button = ({ children, to, color, padding, margin, onClick, style }) => (
   <span>
      <button
+      style={style}
       className=".btn"
       onClick={(e) => {
         to ? route(to, e)

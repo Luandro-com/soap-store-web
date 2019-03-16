@@ -1,4 +1,4 @@
-const Input = ({ label, type, width, value, onChange, background, border, margin }) => (
+const Input = ({ label, type, width, value, onChange, background, border, margin, disabled }) => (
   <span className="wrapper">
     <span className="label">{label}</span>
     {(type === 'textarea') && <textarea
@@ -6,6 +6,7 @@ const Input = ({ label, type, width, value, onChange, background, border, margin
       value={value}
     />}
     {(type !== 'textarea') && <input
+      disabled={disabled}
       onChange={onChange}
       type={type || "text"}
       value={value}

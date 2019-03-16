@@ -1,0 +1,8 @@
+mutation($input: OrderInput) {
+  saveOrder(input: $input) {
+    id
+    status
+    totalShippingPrice
+    totalPrice
+  }
+}

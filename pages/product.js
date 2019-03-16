@@ -19,8 +19,17 @@ class Product extends Component {
     quantity: 1,
   }
   handleChange = (name, stockQuantity) => event => {
+    const value = event.target.value
     const { quantity } = this.state
-    if (name === 'quantity' && (quantity + 1 <= stockQuantity) && (event.target.value > 0)) {
+    if (value > stockQuantity) {
+      this.setState({
+        [name]: stockQuantity,
+      })
+    } else if (value < 1) {
+      this.setState({
+        [name]: 1,
+      })
+    } else {
       this.setState({
         [name]: parseInt(event.target.value),
       })
@@ -37,7 +46,6 @@ class Product extends Component {
         <AppData.Consumer>
           {({ user, cart }) => {
             if (slug) {
-              console.log('CART', cart)
               return (
                 <Query query={PRODUCT_BY_SLUG} variables={{ slug }}>
                   {({ data, loading, error }) => {
@@ -88,16 +96,18 @@ class Product extends Component {
                                   padding="24px 25px"
                                   margin="35px auto 0"
                                   onClick={async (e) => {
-                                    if (user) {
-                                      const res = await addToCart({ variables: { input: { productId: id, quantity }}})
-                                      console.log('RES addtocart cloud', res)
-                                    } else {
-                                      let currentQuantity
-                                      const exists = cart.findIndex(i => i.product === id)
-                                      if (exists !== -1) currentQuantity = cart[exists].quantity   
-                                      else currentQuantity = 0                                   
-                                      const res = await addToCart({ variables: { productId: id, quantity: currentQuantity + quantity, price }})
-                                      console.log('RES addtocart local', res)
+                                    if(quantity > 0) {
+                                      if (user) {
+                                        const res = await addToCart({ variables: { input: { productId: id, quantity }}})
+                                        console.log('RES addtocart cloud', res)
+                                      } else {
+                                        let currentQuantity
+                                        const exists = cart.findIndex(i => i.product === id)
+                                        if (exists !== -1) currentQuantity = cart[exists].quantity   
+                                        else currentQuantity = 0                                   
+                                        const res = await addToCart({ variables: { productId: id, quantity: currentQuantity + quantity, price }})
+                                        console.log('RES addtocart local', res)
+                                      }
                                     }
                                   }}
                                 >
