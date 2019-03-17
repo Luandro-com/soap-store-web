@@ -2,6 +2,7 @@ mutation($input: OrderInput) {
   saveOrder(input: $input) {
     id
     status
+    code
     totalShippingPrice
     totalPrice
   }

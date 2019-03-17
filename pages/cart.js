@@ -3,10 +3,11 @@ import * as Scroll from 'react-scroll'
 import isEqual from 'lodash.isequal'
 import App from '../components/App'
 import AppData from '../components/AppData'
+import AuthForm from '../components/AuthForm'
 import CartList from '../components/CartList'
 import CartTotal from '../components/CartTotal'
-import AuthForm from '../components/AuthForm'
 import CartAddress from '../components/CartAddress'
+import CartCard from '../components/CartCard'
 import SAVE_ORDER from '../queries/saveOrder.gql'
 
 class Cart extends Component {
@@ -19,6 +20,9 @@ class Cart extends Component {
     shippingValue: null,
     loginModal: false,
     addressOpen: false,
+    finalizing: false,
+    finalizingError: false,
+    paymentMethods: null,
   }
   toggleModal() {
     this.setState({
@@ -44,19 +48,23 @@ class Cart extends Component {
     }
   }
   handleCheckout = async (addressData, currentAddress, saveAddress, client, user) => {
-    let mutableAddress = addressData 
-    delete mutableAddress.__typename
-    delete mutableAddress.type
-    delete mutableAddress.id
+    this.setState({
+      finalizing: true,
+    })
+    const clean = {
+      __typename: undefined,
+      type: undefined,
+      id: undefined,
+    }
+    let mutableCurrentAddress
+    let mutableAddress = Object.assign({}, addressData, clean) 
     let shippingAddressId = currentAddress.id
     if (currentAddress) {
-      delete currentAddress.__typename
-      delete currentAddress.type
-      delete currentAddress.id
+      mutableCurrentAddress = Object.assign({}, currentAddress, clean)    
     }
-    const sameAs = isEqual(mutableAddress, currentAddress)
+    const sameAs = isEqual(mutableAddress, mutableCurrentAddress)
     if (!sameAs) {
-      const res = await saveAddress({ variables: { input: { ...addressData }}})
+      const res = await saveAddress({ variables: { input: { ...mutableAddress }}})
       shippingAddressId = res.data.saveAddress.id
     }
     client.mutate({
@@ -67,29 +75,56 @@ class Cart extends Component {
       }}
     })
     .then(res => {
-      console.log(res.data.saveOrder.id)
-      const code = res.data.saveOrder.id
-      const isOpenLightbox = PagSeguroLightbox(code, (e) => console.log('SUCCESS', e))
-      // Redireciona o comprador, caso o navegador não tenha suporte ao Lightbox
-      if (!isOpenLightbox){
-          location.href="https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=" + code;
-      }
+      console.log(res.data.saveOrder)
+      const { totalPrice, code } = res.data.saveOrder
+      PagSeguroDirectPayment.setSessionId(code)
+      PagSeguroDirectPayment.getPaymentMethods({
+        amount: totalPrice,
+        success: (response) => {
+          console.log('response', response)
+          this.setState({
+            finalizing: false,
+            paymentMethods: response.paymentMethods,
+          }, () => Scroll.animateScroll.scrollMore(500, {
+            duration: 500,
+            delay: 100,
+            smooth: true,
+          }))
+          PagSeguroDirectPayment.onSenderHashReady((response) => {
+            if(response.status == 'error') {
+              console.log(response.message)
+              return false
+            }
+            var hash = response.senderHash //Hash estará disponível nesta variável.
+            console.log('HASH', hash)
+          })
+        },
+        error: (response) => {
+          this.setState({
+            finalizing: false,
+            finalizingError: true,
+          })
+          console.log('response', response)
+        },
+        complete: (response) => {
+          console.log('response', response)
+        }
+      })
+      
 
-      // PagSeguroLightbox({ code: res.data.saveOrder.id }, {
-      //   success : (transactionCode) => {
-      //     alert("success - " + transactionCode)
-      //   },
-      //   abort : () => {
-      //     alert("abort")
-      //   }
-      // })
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err)
+      this.setState({
+        finalizing: false,
+        finalizingError: true,
+      })
+    })
     // saveOrder
     // open checkout box
   }
   render () {
-    const { shippingValue, loginModal, addressOpen } = this.state
+    const { shippingValue, loginModal, addressOpen, finalizing, finalizingError, paymentMethods } = this.state
     return (
       <App>
         <AppData.Consumer>
@@ -118,9 +153,18 @@ class Cart extends Component {
                 {!user && <div className={loginModal ? 'modal-open' : 'modal-closed'}>
                   <AuthForm action={this.toggleModal} />
                 </div>}
-                <div className={addressOpen ? "cart-address" : "modal-closed"}>
-                  <CartAddress client={client} user={user} handleCheckout={(addressData, currentAddress, saveAddress) => this.handleCheckout(addressData, currentAddress, saveAddress, client, user)} />
+                <div className={addressOpen ? "cart-section" : "modal-closed"}>
+                  <CartAddress
+                    client={client}
+                    user={user}
+                    finalizing={finalizing}
+                    finalizingError={finalizingError}
+                    finished={paymentMethods ? true : false}
+                    handleCheckout={(addressData, saveAddress) => this.handleCheckout(addressData, user.addresses[0], saveAddress, client, user)} />
                 </div>
+                {paymentMethods && <div className={paymentMethods ? "cart-section" : "modal-closed"}>
+                  <CartCard paymentMethods={paymentMethods} />
+                </div>}
               </main>
             )
           }}
@@ -146,7 +190,7 @@ class Cart extends Component {
             padding: 30px;
             z-index:9999;
           }
-          .cart-address {
+          .cart-section {
             padding-top: 100px;
           }
         `}</style>

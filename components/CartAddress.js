@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import Input from './Input'
 import Button from './Button'
+import Loading from './Loading'
+import Error from './Error'
 import ZIP from '../queries/zip.gql'
 import SAVE_ADDRESS from '../queries/saveAddress.gql'
 import USER from '../queries/user.gql'
@@ -27,7 +29,17 @@ export default class CartAddress extends Component {
         this.getZipData(parseInt(zip))
       }
     }
+    const { user } = this.props
+    if (user && user.addresses && user.addresses.length > 0) {
+      this.setState({
+        ...user.addresses[0]
+      })
+    } else if (user) {
+      if (user.firstName) this.setState({ firstName: user.firstName })
+      if (user.lastName) this.setState({ lastName: user.lastName })
+    }
   }
+  
   componentDidUpdate(prevProps, prevState) {
     const { user } = this.props
     if (prevProps.user !== user) {
@@ -68,16 +80,14 @@ export default class CartAddress extends Component {
   }
   render() {
     const { street, number, complement, zip, district, city, state, country, firstName, lastName } = this.state
-    const { handleCheckout, user } = this.props
+    const { handleCheckout, user, finalizing, finalizingError, finished } = this.props
     return (
       <Mutation
         mutation={SAVE_ADDRESS}
         update={(cache, {data, error}) => {
           const cacheData = cache.readQuery({ query: USER })
-          console.log('data.saveAddress', data.saveAddress)
           let newData = cacheData.user
           newData.addresses = cacheData.user.addresses.concat(data.saveAddress)
-          console.log('newData', newData)
           cache.writeQuery({
             query: USER,
             data: { user: newData },
@@ -101,7 +111,9 @@ export default class CartAddress extends Component {
               <Input onChange={this.handleChange('street')} value={street} label="Rua" />
               <Input onChange={this.handleChange('number')} value={number} label="Número" />
             </div>
-            <Button onClick={() => handleCheckout(this.state, user.addresses[0], saveAddress)}>Finalizar compra</Button>
+            {(!finalizing && !finished) && <Button onClick={() => handleCheckout(this.state, saveAddress)}>Finalizar compra</Button>}
+            {finalizing && <Loading />}
+            {finalizingError && <Error />}
             <style jsx>{`
               h1 {
                 padding: 20px 0;

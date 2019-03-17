@@ -59,9 +59,7 @@ export default class extends Document {
           <Main />
           <NextScript />
         </body>
-        <script type="text/javascript"
-          src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
-        </script>
+        <script type="text/javascript" src={`https://stc.${(process.env.NODE_ENV === 'production') ? 'pagseguro' : 'sandbox.pagseguro'}.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js`}></script>
       </html>
     )
   }
