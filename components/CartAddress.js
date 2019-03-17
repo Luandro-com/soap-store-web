@@ -32,7 +32,7 @@ export default class CartAddress extends Component {
     const { user } = this.props
     if (user && user.addresses && user.addresses.length > 0) {
       this.setState({
-        ...user.addresses[0]
+        ...user.addresses[user.addresses.length -1]
       })
     } else if (user) {
       if (user.firstName) this.setState({ firstName: user.firstName })
@@ -45,7 +45,7 @@ export default class CartAddress extends Component {
     if (prevProps.user !== user) {
       if (user && user.addresses && user.addresses.length > 0) {
         this.setState({
-          ...user.addresses[0]
+          ...user.addresses[user.addresses.length -1]
         })
       } else if (user) {
         if (user.firstName) this.setState({ firstName: user.firstName })

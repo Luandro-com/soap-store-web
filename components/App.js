@@ -47,6 +47,13 @@ export default class extends Component {
                             img {
                               max-width: 100%;
                             }
+                            .hidden {
+                              position: absolute; 
+                              overflow: hidden; 
+                              clip: rect(0 0 0 0); 
+                              height: 1px; width: 1px; 
+                              margin: -1px; padding: 0; border: 0; 
+                            }
                             a {
                               font-family: 'proxima-nova', sans-serif;
                               font-weight: 500;
