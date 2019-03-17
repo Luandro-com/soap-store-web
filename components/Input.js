@@ -1,4 +1,4 @@
-const Input = ({ label, type, width, value, onChange, background, border, margin, disabled }) => (
+const Input = ({ label, type, width, list, value, onChange, background, border, margin, disabled, defaultValue }) => (
   <span className="wrapper">
     <span className="label">{label}</span>
     {(type === 'textarea') && <textarea
@@ -10,6 +10,8 @@ const Input = ({ label, type, width, value, onChange, background, border, margin
       onChange={onChange}
       type={type || "text"}
       value={value}
+      list={list}
+      defaultValue={defaultValue}
     />}
     <style jsx>{`
       .wrapper {

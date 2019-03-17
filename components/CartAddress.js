@@ -8,6 +8,36 @@ import ZIP from '../queries/zip.gql'
 import SAVE_ADDRESS from '../queries/saveAddress.gql'
 import USER from '../queries/user.gql'
 
+const stateList = [
+  {"nome": "Acre", "sigla": "AC"},
+  {"nome": "Alagoas", "sigla": "AL"},
+  {"nome": "Amapá", "sigla": "AP"},
+  {"nome": "Amazonas", "sigla": "AM"},
+  {"nome": "Bahia", "sigla": "BA"},
+  {"nome": "Ceará", "sigla": "CE"},
+  {"nome": "Distrito Federal", "sigla": "DF"},
+  {"nome": "Espírito Santo", "sigla": "ES"},
+  {"nome": "Goiás", "sigla": "GO"},
+  {"nome": "Maranhão", "sigla": "MA"},
+  {"nome": "Mato Grosso", "sigla": "MT"},
+  {"nome": "Mato Grosso do Sul", "sigla": "MS"},
+  {"nome": "Minas Gerais", "sigla": "MG"},
+  {"nome": "Pará", "sigla": "PA"},
+  {"nome": "Paraíba", "sigla": "PB"},
+  {"nome": "Paraná", "sigla": "PR"},
+  {"nome": "Pernambuco", "sigla": "PE"},
+  {"nome": "Piauí", "sigla": "PI"},
+  {"nome": "Rio de Janeiro", "sigla": "RJ"},
+  {"nome": "Rio Grande do Norte", "sigla": "RN"},
+  {"nome": "Rio Grande do Sul", "sigla": "RS"},
+  {"nome": "Rondônia", "sigla": "RO"},
+  {"nome": "Roraima", "sigla": "RR"},
+  {"nome": "Santa Catarina", "sigla": "SC"},
+  {"nome": "São Paulo", "sigla": "SP"},
+  {"nome": "Sergipe", "sigla": "SE"},
+  {"nome": "Tocantins", "sigla": "TO"}
+]
+
 export default class CartAddress extends Component {
   state = {
     street: '',
@@ -16,7 +46,7 @@ export default class CartAddress extends Component {
     zip: '',
     district: '',
     city: '',
-    state: '',
+    state: 'AC',
     country: '',
     firstName: '',
     lastName: '',
@@ -105,7 +135,10 @@ export default class CartAddress extends Component {
               <Input onChange={this.handleChange('zip')} value={zip} label="CEP" />
               <Input onChange={this.handleChange('district')} value={district} label="Bairro" />
               <Input onChange={this.handleChange('city')} value={city} label="Cidade" />
-              <Input onChange={this.handleChange('state')} value={state} label="UF" />
+              <Input onChange={this.handleChange('state')} value={state} list="states" label="UF" />
+              <datalist id="states">
+                {stateList.map(i => <option key={i.nome} value={i.sigla} />)}
+              </datalist>
             </div>
             <div className="section">
               <Input onChange={this.handleChange('street')} value={street} label="Rua" />
