@@ -96,7 +96,7 @@ export default class CartAddress extends Component {
       >
         {(saveAddress => (
           <div id="cart-address">
-            <h1>Endereço para entrega</h1>
+            <h2>Endereço para entrega</h2>
             <div className="section">
               <Input onChange={this.handleChange('firstName')} value={firstName} label="Primeiro nome" />
               <Input onChange={this.handleChange('lastName')} value={lastName} label="Sobrenome" />

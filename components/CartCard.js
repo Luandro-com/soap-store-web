@@ -23,9 +23,11 @@ export default class CartCard extends Component {
       <h2>Pagamento</h2>
       <Tabs>
         <TabList>
-          {Object.keys(paymentMethods).map(i => <Tab key={i}>{returnName(i)}</Tab>)}
+          {Object.keys(paymentMethods)
+            .sort((a, b) => paymentMethods[a].code - paymentMethods[b].code)
+            .map(i => <Tab key={i}>{returnName(i)}</Tab>)}
         </TabList>
-        {Object.keys(paymentMethods).map(i => <TabPanel key={i}>
+        {Object.keys(paymentMethods).sort((a, b) => paymentMethods[a].code - paymentMethods[b].code).map(i => <TabPanel key={i}>
           <div className="flags">
             {(paymentMethods[i].options[i] && paymentMethods[i].options[i].status === "AVAILABLE") && <div>
               {paymentMethods[i].options[i].images && <img src={uri+paymentMethods[i].options[i].images.MEDIUM.path} />}
