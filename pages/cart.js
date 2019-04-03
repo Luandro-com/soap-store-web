@@ -7,7 +7,7 @@ import AuthForm from '../components/AuthForm'
 import CartList from '../components/CartList'
 import CartTotal from '../components/CartTotal'
 import CartAddress from '../components/CartAddress'
-import CartCard from '../components/CartCard'
+import CartCheckout from '../components/CartCheckout'
 import SAVE_ORDER from '../queries/saveOrder.gql'
 
 class Cart extends Component {
@@ -23,6 +23,7 @@ class Cart extends Component {
     finalizing: false,
     finalizingError: false,
     paymentMethods: null,
+    senderHash: null,
   }
   toggleModal() {
     this.setState({
@@ -95,8 +96,11 @@ class Cart extends Component {
               console.log(response.message)
               return false
             }
-            var hash = response.senderHash //Hash estará disponível nesta variável.
+            const hash = response.senderHash //Hash estará disponível nesta variável.
             console.log('HASH', hash)
+            this.setState({
+              senderHash: hash
+            })
           })
         },
         error: (response) => {
@@ -124,7 +128,7 @@ class Cart extends Component {
     // open checkout box
   }
   render () {
-    const { shippingValue, loginModal, addressOpen, finalizing, finalizingError, paymentMethods } = this.state
+    const { shippingValue, loginModal, addressOpen, finalizing, finalizingError, paymentMethods, senderHash } = this.state
     return (
       <App>
         <AppData.Consumer>
@@ -163,7 +167,7 @@ class Cart extends Component {
                     handleCheckout={(addressData, saveAddress) => this.handleCheckout(addressData, user.addresses[0], saveAddress, client, user)} />
                 </div>
                 {paymentMethods && <div className={paymentMethods ? "cart-section" : "modal-closed"}>
-                  <CartCard paymentMethods={paymentMethods} />
+                  <CartCheckout paymentMethods={paymentMethods} senderHash={senderHash} />
                 </div>}
               </main>
             )
