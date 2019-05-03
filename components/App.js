@@ -5,6 +5,7 @@ import * as gtag from '../lib/gtag'
 import USER from '../queries/user.gql'
 import CONTENT from '../queries/content.gql'
 import LOCAL_CART from '../queries/localCart.gql'
+import "react-tabs/style/react-tabs.css"
 
 import Header from './Header'
 import Contact from './Contact'
@@ -95,8 +96,10 @@ export default class extends Component {
                               background-color: ${colors.color4};
                               border: 0;
                               color: white;
-                              display: flex;
                               padding: 5px 7px;
+                            }
+                            button:hover {
+                              cursor: pointer;
                             }
                             button:active {
                               background-color: #1b9db7;

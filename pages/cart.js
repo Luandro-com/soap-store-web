@@ -11,12 +11,8 @@ import CartCheckout from '../components/CartCheckout'
 import SAVE_ORDER from '../queries/saveOrder.gql'
 
 class Cart extends Component {
-  constructor(props) {
-    super(props)
-    this.toggleModal = this.toggleModal.bind(this)
-    this.handleShippingValue = this.handleShippingValue.bind(this)
-  }
   state = {
+    shippingOption: null,
     shippingValue: null,
     loginModal: false,
     addressOpen: false,
@@ -24,22 +20,24 @@ class Cart extends Component {
     finalizingError: false,
     paymentMethods: null,
     senderHash: null,
+    order: null,
   }
-  toggleModal() {
+  toggleModal = () => {
     this.setState({
       loginModal: !this.state.loginModal
     })
   }
-  handleShippingValue(shippingValue) {
+  handleShippingValue = (shippingValue) => {
     this.setState({
       shippingValue
     })
   }
-  handleNext(user) {
+  handleNext(user, shippingOption) {
     if (!user) {
       this.toggleModal()
     } else {
       this.setState({
+        shippingOption,
         addressOpen: true
       }, () => Scroll.animateScroll.scrollMore(500, {
         duration: 500,
@@ -49,6 +47,7 @@ class Cart extends Component {
     }
   }
   handleCheckout = async (addressData, currentAddress, saveAddress, client, user) => {
+    const { shippingValue, shippingOption } = this.state
     this.setState({
       finalizing: true,
     })
@@ -59,7 +58,7 @@ class Cart extends Component {
     }
     let mutableCurrentAddress
     let mutableAddress = Object.assign({}, addressData, clean) 
-    let shippingAddressId = currentAddress.id
+    let shippingAddressId = currentAddress ? currentAddress.id : '' 
     if (currentAddress) {
       mutableCurrentAddress = Object.assign({}, currentAddress, clean)    
     }
@@ -68,16 +67,21 @@ class Cart extends Component {
       const res = await saveAddress({ variables: { input: { ...mutableAddress }}})
       shippingAddressId = res.data.saveAddress.id
     }
+    console.log('SHIPPPPPPPPING', shippingValue[shippingOption].value)
     client.mutate({
       mutation: SAVE_ORDER,
       variables: { input: {
+        shippingValue: shippingValue[shippingOption].value,
+        shippingOption,
         cartId: user.cart.id,
         shippingAddressId,
       }}
     })
     .then(res => {
-      console.log(res.data.saveOrder)
       const { totalPrice, code } = res.data.saveOrder
+      this.setState({
+        order: res.data.saveOrder
+      })
       PagSeguroDirectPayment.setSessionId(code)
       PagSeguroDirectPayment.getPaymentMethods({
         amount: totalPrice,
@@ -86,11 +90,7 @@ class Cart extends Component {
           this.setState({
             finalizing: false,
             paymentMethods: response.paymentMethods,
-          }, () => Scroll.animateScroll.scrollMore(500, {
-            duration: 500,
-            delay: 100,
-            smooth: true,
-          }))
+          })
           PagSeguroDirectPayment.onSenderHashReady((response) => {
             if(response.status == 'error') {
               console.log(response.message)
@@ -128,12 +128,13 @@ class Cart extends Component {
     // open checkout box
   }
   render () {
-    const { shippingValue, loginModal, addressOpen, finalizing, finalizingError, paymentMethods, senderHash } = this.state
+    const { shippingValue, shippingOption, loginModal, addressOpen, finalizing, finalizingError, paymentMethods, senderHash, order } = this.state
     return (
       <App>
         <AppData.Consumer>
           {({ user, content, cart, client }) => {
             let total
+            let fullTotal
             if(cart && cart.length > 0 && cart[0].price) {
               total = cart.reduce((acc, curr) => {
                 return (curr.price * curr.quantity) + acc
@@ -142,6 +143,10 @@ class Cart extends Component {
               total = cart.products.reduce((acc, curr) => {
                 return (curr.product.price * curr.quantity) + acc
               }, 0)
+            }
+            if (shippingOption && shippingValue) {
+              fullTotal = total + shippingValue[shippingOption].value
+              console.log('TOTAL + SHIPPING', fullTotal)
             }
             return (
               <main>
@@ -152,12 +157,12 @@ class Cart extends Component {
                   shippingValue={shippingValue}
                   addressOpen={addressOpen}
                   handleShipping={this.handleShippingValue}
-                  onClick={() => this.handleNext(user)}
+                  onClick={(shippingOption) => this.handleNext(user, shippingOption)}
                 />}
                 {!user && <div className={loginModal ? 'modal-open' : 'modal-closed'}>
                   <AuthForm action={this.toggleModal} />
                 </div>}
-                <div className={addressOpen ? "cart-section" : "modal-closed"}>
+                <div className={(addressOpen && !paymentMethods) ? "cart-section" : "modal-closed"}>
                   <CartAddress
                     client={client}
                     user={user}
@@ -167,7 +172,12 @@ class Cart extends Component {
                     handleCheckout={(addressData, saveAddress) => this.handleCheckout(addressData, user.addresses[0], saveAddress, client, user)} />
                 </div>
                 {paymentMethods && <div className={paymentMethods ? "cart-section" : "modal-closed"}>
-                  <CartCheckout paymentMethods={paymentMethods} senderHash={senderHash} />
+                  <CartCheckout
+                    paymentMethods={paymentMethods}
+                    senderHash={senderHash}
+                    total={fullTotal}
+                    orderId={order.id}
+                  />
                 </div>}
               </main>
             )

@@ -5,6 +5,7 @@ import SIGNUP from '../queries/signup.gql'
 import USER from '../queries/user.gql'
 import updateUserCart from '../lib/updateCart'
 import validateEmail from '../lib/validateEmail'
+import colors from '../lib/colors'
 import AppData from './AppData'
 
 class AuthForm extends Component {
@@ -70,6 +71,7 @@ class AuthForm extends Component {
                     }
                   }
                 }}>
+                  <h2>{signup ? 'Login' : 'Cadastrar'}</h2>
                   <input
                     id="standard-email"
                     label="Email"
@@ -93,20 +95,52 @@ class AuthForm extends Component {
                     onChange={this.handleChange('password2')}
                     margin="normal"
                   />}
-                  <hr />
                   <button size="small" color="primary" type="submit">
                     {signup ? 'Cadastrar' : 'Entrar'}
                   </button>
                   {error && <h6>Erro!</h6>}
-                  <button size="small" color="primary" onClick={e => {
+                  <a className="toggle" onClick={e => {
                     e.preventDefault()
                     this.toggleAuth()
                   }}>
                   {signup ? 'Login' : 'Cadastrar'}
-                </button>
+                </a>
                 <style jsx>{`
+                  form {
+                    background: white;
+                    margin: 0 auto;
+                    border: 1px solid ${colors.color1};
+                    max-width: 375px;
+                    padding: 15px 25px;
+                    display: flex;
+                    flex-flow: column;
+                    align-content: center;
+                    justify-content: space-around;
+                    min-height: 275px;
+                    border-radius: 25px;
+                  }
+                  h2 {
+                    color: ${colors.color3};
+                    text-align: center;
+                    text-transform: uppercase;
+                    padding-bottom: 15px;
+                  }
+                  input, button {
+                    padding: 7.5px;
+                    border-radius: 15px;
+                  }
+                  input {
+                    border: 1px solid ${colors.color1};
+                  }
                   button {
-                    margin: 5px 0;
+                    text-align: center;
+                  }
+                  .toggle {
+                    text-transform: lowercase;
+                    font-size: 0.8em;
+                    font-weight: 100;
+                    text-align: center;
+                    color: ${colors.color3};
                   }
                 `}</style>
                 </form>
